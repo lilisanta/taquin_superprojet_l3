@@ -162,5 +162,21 @@ public class Plateau implements Serializable{
         
         return p;
     }
+
+    public Case[][] getCases() {
+        return cases;
+    }
+
+    public void setCases(Case[][] cases) {
+        this.cases = cases;
+    }
+
+    public void setCaseVide(Case caseVide) {
+        this.caseVide = caseVide;
+    }
+
+    public Case getCaseVide() {
+        return caseVide;
+    }
     
 }
