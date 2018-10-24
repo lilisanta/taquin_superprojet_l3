@@ -1,2 +1,4 @@
 build/*.class
-nbproject/private/*
+nbproject/*
+src/testgui/*
+media/*

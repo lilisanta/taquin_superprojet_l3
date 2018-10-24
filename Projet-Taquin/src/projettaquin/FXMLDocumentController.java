@@ -20,6 +20,8 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private Label label;
+    @FXML
+    private Label labelTest;
     
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -27,9 +29,14 @@ public class FXMLDocumentController implements Initializable {
         label.setText("Hello World!");
     }
     
+    @FXML
+    private void vazy(ActionEvent action){
+        labelTest.setRotate(60);
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        labelTest=new Label("Coucou c moi §§§!!!§§§");
     }    
     
 }
