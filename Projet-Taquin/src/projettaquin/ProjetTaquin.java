@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import vue.DistributeurPanel;
 
 /**
  *
@@ -19,11 +20,14 @@ public class ProjetTaquin extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        /*Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
         
-        stage.setScene(scene);
+        stage.setScene(scene);*/
+        DistributeurPanel dp=new DistributeurPanel(stage);
+        dp.changePanel("jeu");
+        
         stage.show();
     }
 
