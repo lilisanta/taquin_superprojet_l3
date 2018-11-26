@@ -5,7 +5,6 @@
  */
 package vue;
 
-import testgui.*;
 import javafx.scene.Scene;
 
 /**

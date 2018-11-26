@@ -53,7 +53,7 @@ public class GenerateurPlateau {
         int taille = Integer.parseInt(in.readLine());
         Case[][] cases = new Case[taille][taille];
         String num;
-        for(int i=0; i< taille;i++){
+        for(int i=0; i< taille;i++){        // i numéro de ligne et y numéro de colonne
             for(int y=0; y < taille;y++){
             num = in.readLine();
             if(num.equals("V")){

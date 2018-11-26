@@ -26,17 +26,36 @@ public class ImageUtils {
            int x = 0,y = 0;
            int dx = (source.getWidth()/nb);
            int dy = (source.getHeight()/nb);
-           while( y < source.getHeight()){
+           System.out.println("dx="+dx+ "et dy ="+dy);
+           
+           
+           if(dx*nb==source.getWidth()){
+              while( y < source.getHeight()){
                while( x < source.getWidth()){
                   ImageIO.write(source.getSubimage(x,y,dx,dy),"png",new File("media/images/tmp/"+compte+".png"));
                   x+=dx;
-                  compte++;
-               }
-               x=0;
-               y+=dy;
-           }
-        }catch(Exception e){
-        
+                        compte++;
+                    }
+                    x = 0;
+                    y += dy;
+                }
+
+            } else {
+                ImageIO.write(source.getSubimage(0, 0, dx * nb, dy * nb), "png", new File("media/images/tmp/image_temporaire" + compte + ".png"));
+                BufferedImage source_temporaire = ImageIO.read(new File("media/images/tmp/image_temporaire" + compte + ".png"));
+
+                while (y < source_temporaire.getHeight()) {
+                    while (x < source_temporaire.getWidth()) {
+                        ImageIO.write(source_temporaire.getSubimage(x,y,dx,dy), "png", new File("media/images/tmp/" + compte + ".png"));
+                        x += dx;
+                        compte++;
+                    }
+                    x = 0;
+                    y += dy;
+
+                }
+            }
+        } catch (Exception e) {
         }
     }
     

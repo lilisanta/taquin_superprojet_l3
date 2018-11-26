@@ -22,7 +22,10 @@ public class TaquinConsole {
            }
        }
        Plateau p = GenerateurPlateau.chargerPlateau("taquin1");
-     
+       System.out.println(" Entrez : 'h' pour déplcer vers le haut"
+               +" 'b'pour déplacer vers le haut "
+               + "'g' pour déplacer vers la gauche"
+               +" 'd' pour déplacer vers la droite ");
        Scanner in = new Scanner(System.in);
        char commande=0;
         
