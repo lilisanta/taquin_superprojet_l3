@@ -96,4 +96,41 @@ public class DBHelper {
         
         return res;
     }
+    
+    public boolean insertScores(String typePartie,String pseudo, int nbCoups, String temps,String date){
+        String nomTable = "";
+        switch(typePartie){
+            case "solo":
+                nomTable = "Scores";
+                break;
+            case "coop":
+                nomTable = "ScoresCoop";
+                break;
+            case "compet":
+                nomTable = "ScoresCompet";
+                break;
+        }
+        
+        
+        Connection con;
+        try {
+            con = DriverManager.getConnection("mysql-pware.alwaysdata.net",username,pass);
+            Statement st = con.createStatement();
+            String requete = "INSERT INTO "+nomTable+" VALUES("+pseudo+","+nbCoups+","+temps+","+date+");";
+            st.executeQuery(requete);
+            con.close();
+        } catch (SQLException ex) {
+           System.err.println("Connexion impossible à la base de données");
+           ex.printStackTrace();
+            
+        }
+        
+        
+        
+        
+        return true;
+    }
+    
+    
+    
 }
