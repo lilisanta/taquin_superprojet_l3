@@ -16,12 +16,28 @@ import taquinconsole.Plateau;
  * @author guillaume
  */
 public class IDAStar implements AlgoIA{
-
-    @Override
-    public Stack aide() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
+    private Stack chemin;
+    
+    
+    @Override
+    public Stack aide(Plateau p) {
+       int lim = 0;
+       double t;
+       chemin = new Stack();
+        t = recherche(p,0,Double.MAX_VALUE);
+        if(t!=0){
+            return chemin;
+        }else{
+            return null;
+        }
+
+    }
+    /**
+     * Calcule le nombre de cases mal placées dans un noeud
+     * @param grille Grille de l'état courant
+     * @return nombre de cases mal placées
+     */
     public int cout(Plateau grille){
         int res = 0;
         Case[][] cases = grille.getCases();
@@ -29,7 +45,7 @@ public class IDAStar implements AlgoIA{
             for(int j =0; j < cases[i].length; i++){
                 Case courante = cases[i][j];
                 if(courante instanceof CaseNumerotee){
-                    int diff = ((CaseNumerotee) courante).getNum() - (3*i+j);
+                    int diff = ((CaseNumerotee) courante).getNum() - (cases.length*i+j);
                     if(diff!=0){
                         res++;
                     }
@@ -39,6 +55,19 @@ public class IDAStar implements AlgoIA{
         
         
         return res;
+    }
+    //TODO
+    /**
+     * 
+     * @param noeud
+     * @param coutEstimePlusCourt
+     * @param limite
+     * @return 
+     */
+    public double recherche(Plateau noeud,int coutEstimePlusCourt, double limite ){
+        
+        
+        return -1.0;
     }
     
 }
