@@ -27,7 +27,7 @@ public class IDAStar implements AlgoIA{
        chemin = new Stack();
        chemin.push(p);
         t = recherche(0,Double.MAX_VALUE);
-        if(t!=0){
+        if(t==FOUND){
             return chemin;
         }else{
             return null;
