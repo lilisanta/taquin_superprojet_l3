@@ -16,7 +16,7 @@ import taquinconsole.Plateau;
  * @author guillaume
  */
 public class IDAStar implements AlgoIA{
-    
+    private static final double FOUND = -200;
     private Stack chemin;
     
     
@@ -25,7 +25,8 @@ public class IDAStar implements AlgoIA{
        int lim = 0;
        double t;
        chemin = new Stack();
-        t = recherche(p,0,Double.MAX_VALUE);
+       chemin.push(p);
+        t = recherche(0,Double.MAX_VALUE);
         if(t!=0){
             return chemin;
         }else{
@@ -56,18 +57,30 @@ public class IDAStar implements AlgoIA{
         
         return res;
     }
-    //TODO
     /**
      * 
-     * @param noeud
      * @param coutEstimePlusCourt
      * @param limite
      * @return 
      */
-    public double recherche(Plateau noeud,int coutEstimePlusCourt, double limite ){
-        
-        
-        return -1.0;
+    public double recherche(int coutEstimePlusCourt, double limite ){
+        double min = 0;
+        Plateau noeud = (Plateau) chemin.pop();
+        double f = coutEstimePlusCourt + cout(noeud);
+        if(f > limite) return f;
+        if(noeud.verifierVictoire()) return 0;
+        min = Double.MAX_VALUE;
+        Plateau[] configs = noeud.configurationsSuivantesPossibles();
+        for(Plateau i : configs){
+            if(!chemin.contains(i)){
+                chemin.push(i);
+               double t = recherche(coutEstimePlusCourt+cout(i),limite);
+               if(t==FOUND) return FOUND;
+               if(t<min) min = t;
+               chemin.pop();
+            }
+        }
+        return min;
     }
     
 }
