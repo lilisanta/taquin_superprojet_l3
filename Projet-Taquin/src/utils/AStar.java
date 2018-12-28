@@ -6,6 +6,7 @@
 package utils;
 
 import java.util.Stack;
+import taquinconsole.Plateau;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.util.Stack;
 public class AStar implements AlgoIA{
 
     @Override
-    public Stack aide() {
+    public Stack aide(Plateau p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

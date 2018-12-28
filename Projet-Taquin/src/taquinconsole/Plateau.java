@@ -13,7 +13,7 @@ import java.io.Serializable;
 /**
  *Classe représentant le plateau de jeu, avec des cases numérotées et une case vide
  */
-public class Plateau implements Serializable{
+public class Plateau implements Serializable, Cloneable{
     private Case[][] cases;
     private Case caseVide;
     
@@ -177,6 +177,33 @@ public class Plateau implements Serializable{
 
     public Case getCaseVide() {
         return caseVide;
+    }
+    
+    public Plateau[] configurationsSuivantesPossibles(){
+         Plateau[] res= new Plateau[4];
+        try {
+            
+            //Clonage de plateau;
+            
+            Plateau pHaut = (Plateau)this.clone();
+            Plateau pBas = (Plateau)this.clone();
+            Plateau pGauche = (Plateau)this.clone();
+            Plateau pDroite = (Plateau)this.clone();
+            
+            pHaut.deplacement('h');
+            pBas.deplacement('b');
+            pGauche.deplacement('g');
+            pDroite.deplacement('d');
+            res[0] = pHaut;
+            res[1] = pBas;
+            res[2] = pGauche;
+            res[3] = pDroite;
+            
+            return res;
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(Plateau.class.getName()).log(Level.SEVERE, null, ex);
+            return res;
+        }
     }
     
 }
