@@ -10,7 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import vue.DistributeurPanel;
+import vuegraphique.DistributeurPanel;
 
 /**
  *
@@ -26,7 +26,7 @@ public class ProjetTaquin extends Application {
         
         stage.setScene(scene);*/
         DistributeurPanel dp=new DistributeurPanel(stage);
-        dp.changePanel("jeu");
+        dp.changePanel("menu");
         
         stage.show();
     }
