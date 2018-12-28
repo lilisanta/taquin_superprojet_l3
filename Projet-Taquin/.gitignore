@@ -1,4 +1,5 @@
 build/*.class
 nbproject/*
+nbproject/*.*
 media/*
 src/testgui/*
