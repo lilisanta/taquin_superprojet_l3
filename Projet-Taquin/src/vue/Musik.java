@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vuegraphique;
+package vue;
 
-import testgui.*;
 import java.util.HashMap;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;

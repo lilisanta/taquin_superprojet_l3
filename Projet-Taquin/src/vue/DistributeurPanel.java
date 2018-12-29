@@ -5,7 +5,9 @@
  */
 package vue;
 
+
 import java.util.HashMap;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -21,20 +23,34 @@ public class DistributeurPanel {
         
         fenetre=frame;
         listPanel=new HashMap<String,Panel>();
-        GuiJeu gui=new GuiJeu(this, new PlateauGraphique());
         
+        Menu menu=new Menu(this);
+        MenuSolo solo=new MenuSolo(this);
+        GuiJeu gui=new GuiJeu(this, new PlateauGraphique(),"Solo");
+        //Victoire vic=new Victoire(this);
         
+        listPanel.put("menu", menu);
         listPanel.put("jeu", gui);
+        listPanel.put("solo",solo);
+        //listPanel.put("Victoire", vic);
         
+        Musik.initMusik();
     }
     
-   
+    public void nouveauJeu(PlateauGraphique pg, String type){
+        GuiJeu gui=new GuiJeu(this,pg,type);
+        listPanel.put("jeu",gui);
+    }
     
     public void changePanel(String panel){
+        //Musik.couperMusic();
+        Musik.changeMusik(panel);
         Panel p=(Panel) listPanel.get(panel);
         
         fenetre.setScene(p.getScene());
+        //Musik.lancerMusic();
     }
-   
+    
+    
     
 }

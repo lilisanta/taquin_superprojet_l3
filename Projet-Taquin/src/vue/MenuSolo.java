@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vuegraphique;
+package vue;
 
 import java.io.File;
 import javafx.collections.FXCollections;

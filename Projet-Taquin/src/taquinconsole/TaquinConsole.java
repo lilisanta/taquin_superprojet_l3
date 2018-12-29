@@ -29,10 +29,11 @@ public class TaquinConsole {
            }while(tmp.equals(""));
            commande = tmp.charAt(0);
            if(commande == 's'){
-               p.sauvegarder();
+               p.sauvegarder("Sauvegarde");
                System.out.println("Sauvegarde réussie");
            }else if(commande == 'c'){
-               p = Plateau.charger(in.nextLine());
+               p = Plateau.charger("Sauvegarde");
+               System.out.println("Chargement réussi");
            
            }else if(commande == 'a'){
                p = new Aide("IDA*").aide(p);

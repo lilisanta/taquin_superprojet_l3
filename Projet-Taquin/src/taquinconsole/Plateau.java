@@ -147,10 +147,10 @@ public class Plateau implements Serializable, Cloneable{
         return res;
     }
     
-    public boolean sauvegarder(){
+    public boolean sauvegarder(String filename){
         ObjectOutputStream oos = null;
         try {
-            oos = new ObjectOutputStream(new FileOutputStream(new File("Sauvegarde")));
+            oos = new ObjectOutputStream(new FileOutputStream(new File(filename)));
             oos.writeObject(this);
             oos.close();
         }catch(IOException e){
@@ -172,7 +172,8 @@ public class Plateau implements Serializable, Cloneable{
             p = (Plateau) o;
             in.close();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Plateau.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("La partie n'a pas pu être chargée");
+//Logger.getLogger(Plateau.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return p;
