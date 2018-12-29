@@ -43,7 +43,8 @@ public class IDAStar implements AlgoIA{
         int res = 0;
         Case[][] cases = grille.getCases();
         for(int i = 0; i < cases.length; i++){
-            for(int j =0; j < cases[i].length; i++){
+            for(int j =0; j < cases[i].length; j++){
+                System.out.println(i+" "+j);
                 Case courante = cases[i][j];
                 if(courante instanceof CaseNumerotee){
                     int diff = ((CaseNumerotee) courante).getNum() - (cases.length*i+j);

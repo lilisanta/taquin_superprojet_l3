@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  *Classe abstraite représentant une case
  */
-public abstract class Case implements Serializable{
+public abstract class Case implements Serializable,Cloneable{
     protected int x,y;
 
    public int getX() {
@@ -47,6 +47,11 @@ public abstract class Case implements Serializable{
             return false;
         }
         return true;
+    }
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        return super.clone();
     }
    
    

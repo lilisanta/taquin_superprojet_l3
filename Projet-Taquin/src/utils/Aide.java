@@ -5,6 +5,9 @@
  */
 package utils;
 
+import java.util.Stack;
+import taquinconsole.Plateau;
+
 /**
  *
  * @author guillaume
@@ -17,7 +20,11 @@ public class Aide {
         if(typeAlgo.equals("A*")){
             
         }else if(typeAlgo.equals("IDA*")){
-            
+            this.algo = new IDAStar();
         }
+    }
+    
+    public Plateau aide(Plateau p){
+        return (Plateau)(this.algo.aide(p).pop());
     }
 }

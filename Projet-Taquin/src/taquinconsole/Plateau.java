@@ -37,6 +37,21 @@ public class Plateau implements Serializable, Cloneable{
         }
     }
     
+    
+    ////// A REFAIRE TODO TODO TODO
+    public Plateau(Plateau p ) throws CloneNotSupportedException{
+        int taille = p.getCases().length;
+        this.cases = new Case[taille][taille];
+        Case[][] c2 = new Case[taille][taille];
+        for(int i = 0; i< c2.length;i++){
+            for(int j = 0; j< c2[i].length;j++){
+                this.cases[i][j] = c2[i][j];
+                this.caseVide = this.cases[p.getCaseVide().getX()][p.getCaseVide().getY()];
+            }
+        }
+        
+    }
+    
     /**
      * Méthode qui se charge du déplacement et de la vérification de sa possibilité
      * @param direction Entier représentant la direction du déplacement
@@ -185,10 +200,10 @@ public class Plateau implements Serializable, Cloneable{
             
             //Clonage de plateau;
             
-            Plateau pHaut = (Plateau)this.clone();
-            Plateau pBas = (Plateau)this.clone();
-            Plateau pGauche = (Plateau)this.clone();
-            Plateau pDroite = (Plateau)this.clone();
+            Plateau pHaut = new Plateau(this);
+            Plateau pBas = new Plateau(this);
+            Plateau pGauche = new Plateau(this);
+            Plateau pDroite = new Plateau(this);
             
             pHaut.deplacement('h');
             pBas.deplacement('b');
