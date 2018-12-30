@@ -18,7 +18,7 @@ public class Aide {
     
     public Aide(String typeAlgo){
         if(typeAlgo.equals("A*")){
-            
+            this.algo = new AStar();
         }else if(typeAlgo.equals("IDA*")){
             this.algo = new IDAStar();
         }

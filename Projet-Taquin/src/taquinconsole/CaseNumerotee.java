@@ -17,6 +17,12 @@ public class CaseNumerotee extends Case{
         this.numero=n;
     }
     
+    public CaseNumerotee(Case c){
+        this.x = c.getX();
+        this.y = c.getY();
+        this.numero = ((CaseNumerotee)c).getNum();
+    }
+    
     public int getNum(){
         return this.numero;
     }

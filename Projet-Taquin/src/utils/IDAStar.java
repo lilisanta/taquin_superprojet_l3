@@ -26,7 +26,7 @@ public class IDAStar implements AlgoIA{
        double t;
        chemin = new Stack();
        chemin.push(p);
-        t = recherche(0,Double.MAX_VALUE);
+        t = recherche(0,200);
         if(t==FOUND){
             return chemin;
         }else{
@@ -44,7 +44,6 @@ public class IDAStar implements AlgoIA{
         Case[][] cases = grille.getCases();
         for(int i = 0; i < cases.length; i++){
             for(int j =0; j < cases[i].length; j++){
-                System.out.println(i+" "+j);
                 Case courante = cases[i][j];
                 if(courante instanceof CaseNumerotee){
                     int diff = ((CaseNumerotee) courante).getNum() - (cases.length*i+j);
@@ -66,7 +65,7 @@ public class IDAStar implements AlgoIA{
      */
     public double recherche(int coutEstimePlusCourt, double limite ){
         double min = 0;
-        Plateau noeud = (Plateau) chemin.pop();
+        Plateau noeud = (Plateau) chemin.lastElement();
         double f = coutEstimePlusCourt + cout(noeud);
         if(f > limite) return f;
         if(noeud.verifierVictoire()) return 0;

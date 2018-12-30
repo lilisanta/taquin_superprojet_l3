@@ -13,7 +13,7 @@ public class TaquinConsole {
      */
     public static void main(String[] args) throws IOException, Exception {
        Plateau p = GenerateurPlateau.genererPlateauConsole(3);
-       System.out.println(" Entrez : 'h' pour déplcer vers le haut\n"
+       System.out.println(" Entrez :\n 'h' pour déplcer vers le haut\n"
                +" 'b'pour déplacer vers le haut \n"
                + " 'g' pour déplacer vers la gauche\n"
                +" 'd' pour déplacer vers la droite \n"
@@ -36,7 +36,7 @@ public class TaquinConsole {
                System.out.println("Chargement réussi");
            
            }else if(commande == 'a'){
-               p = new Aide("IDA*").aide(p);
+               p = new Aide("A*").aide(p);
            }else{
                 p.deplacement(commande);
            }

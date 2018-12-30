@@ -10,13 +10,15 @@ import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Objects;
 /**
  *Classe représentant le plateau de jeu, avec des cases numérotées et une case vide
  */
 public class Plateau implements Serializable, Cloneable{
     private Case[][] cases;
     private Case caseVide;
-    
+    private char dernierDepalcement = 0;
     /**
      * Constructeur du plateau
      * @param c Tableau de cases qui sert à la création du plateau
@@ -42,11 +44,15 @@ public class Plateau implements Serializable, Cloneable{
     public Plateau(Plateau p ) throws CloneNotSupportedException{
         int taille = p.getCases().length;
         this.cases = new Case[taille][taille];
-        Case[][] c2 = new Case[taille][taille];
+        Case[][] c2 = p.getCases();
         for(int i = 0; i< c2.length;i++){
             for(int j = 0; j< c2[i].length;j++){
-                this.cases[i][j] = c2[i][j];
-                this.caseVide = this.cases[p.getCaseVide().getX()][p.getCaseVide().getY()];
+               // this.cases[i][j] = c2[i][j];
+               if(c2[i][j] instanceof CaseNumerotee)
+                this.cases[i][j] = new CaseNumerotee(c2[i][j]);
+               else
+                   this.cases[i][j] = new CaseVide(c2[i][j]);
+               this.caseVide = this.cases[p.getCaseVide().getX()][p.getCaseVide().getY()];
             }
         }
         
@@ -69,6 +75,7 @@ public class Plateau implements Serializable, Cloneable{
                    cases[caseVide.getX()][caseVide.getY()] = new CaseNumerotee(caseVide.getX(),caseVide.getY(),num);
                    cases[this.caseVide.getX()-1][this.caseVide.getY()] = new CaseVide(this.caseVide.getX()-1,this.caseVide.getY());
                    caseVide = cases[this.caseVide.getX()-1][this.caseVide.getY()];
+                   this.dernierDepalcement = direction;
                    return true;
                 }
                 break;
@@ -79,6 +86,7 @@ public class Plateau implements Serializable, Cloneable{
                    cases[caseVide.getX()][caseVide.getY()] = new CaseNumerotee(caseVide.getX(),caseVide.getY(),num);
                    cases[this.caseVide.getX()+1][this.caseVide.getY()] = new CaseVide(this.caseVide.getX()+1,this.caseVide.getY());
                    caseVide = cases[this.caseVide.getX()+1][this.caseVide.getY()];
+                   this.dernierDepalcement = direction;
                    return true;
                 }
                 break;
@@ -90,6 +98,7 @@ public class Plateau implements Serializable, Cloneable{
                    cases[caseVide.getX()][caseVide.getY()] = new CaseNumerotee(caseVide.getX(),caseVide.getY(),num);
                    cases[this.caseVide.getX()][this.caseVide.getY()-1] = new CaseVide(this.caseVide.getX(),this.caseVide.getY()-1);
                    caseVide = cases[this.caseVide.getX()][this.caseVide.getY()-1];
+                   this.dernierDepalcement = direction;
                    return true;
                 }
                 break;
@@ -100,6 +109,7 @@ public class Plateau implements Serializable, Cloneable{
                    cases[caseVide.getX()][caseVide.getY()] = new CaseNumerotee(caseVide.getX(),caseVide.getY(),num);
                    cases[this.caseVide.getX()][this.caseVide.getY()+1] = new CaseVide(this.caseVide.getX(),this.caseVide.getY()+1);
                    caseVide = cases[this.caseVide.getX()][this.caseVide.getY()+1];
+                   this.dernierDepalcement = direction;
                    return true;
                 }
                 break;
@@ -220,6 +230,39 @@ public class Plateau implements Serializable, Cloneable{
             Logger.getLogger(Plateau.class.getName()).log(Level.SEVERE, null, ex);
             return res;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 19 * hash + Arrays.deepHashCode(this.cases);
+        hash = 19 * hash + Objects.hashCode(this.caseVide);
+        hash = 19 * hash + this.dernierDepalcement;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Plateau other = (Plateau) obj;
+        if (this.dernierDepalcement != other.dernierDepalcement) {
+            return false;
+        }
+        if (!Arrays.deepEquals(this.cases, other.cases)) {
+            return false;
+        }
+        if (!Objects.equals(this.caseVide, other.caseVide)) {
+            return false;
+        }
+        return true;
     }
     
 }
