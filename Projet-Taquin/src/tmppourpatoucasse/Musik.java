@@ -79,6 +79,9 @@ public class Musik {
         switch (src) {
             case "menu":
             case "solo":
+            case "Victoire":
+            case "classement":
+            case "guide":
             case "jeu":
                 if (!estMedia(src)) {
                     couperMusic();
