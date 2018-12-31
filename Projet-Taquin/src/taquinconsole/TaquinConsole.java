@@ -13,6 +13,7 @@ public class TaquinConsole {
      */
     public static void main(String[] args) throws IOException, Exception {
        Plateau p = GenerateurPlateau.genererPlateauConsole(3);
+       p = GenerateurPlateau.chargerPlateau("taquin1");
        System.out.println(" Entrez :\n 'h' pour déplcer vers le haut\n"
                +" 'b'pour déplacer vers le haut \n"
                + " 'g' pour déplacer vers la gauche\n"

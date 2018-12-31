@@ -39,9 +39,7 @@ public class Plateau implements Serializable, Cloneable{
         }
     }
     
-    
-    ////// A REFAIRE TODO TODO TODO
-    public Plateau(Plateau p ) throws CloneNotSupportedException{
+    public Plateau(Plateau p ){
         int taille = p.getCases().length;
         this.cases = new Case[taille][taille];
         Case[][] c2 = p.getCases();
@@ -206,30 +204,22 @@ public class Plateau implements Serializable, Cloneable{
     }
     
     public Plateau[] configurationsSuivantesPossibles(){
-         Plateau[] res= new Plateau[4];
-        try {
-            
-            //Clonage de plateau;
-            
-            Plateau pHaut = new Plateau(this);
-            Plateau pBas = new Plateau(this);
-            Plateau pGauche = new Plateau(this);
-            Plateau pDroite = new Plateau(this);
-            
-            pHaut.deplacement('h');
-            pBas.deplacement('b');
-            pGauche.deplacement('g');
-            pDroite.deplacement('d');
-            res[0] = pHaut;
-            res[1] = pBas;
-            res[2] = pGauche;
-            res[3] = pDroite;
-            
-            return res;
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(Plateau.class.getName()).log(Level.SEVERE, null, ex);
-            return res;
-        }
+        Plateau[] res= new Plateau[4];
+        //Clonage de plateau;
+        Plateau pHaut = new Plateau(this);
+        Plateau pBas = new Plateau(this);
+        Plateau pGauche = new Plateau(this);
+        Plateau pDroite = new Plateau(this);
+        pHaut.deplacement('h');
+        pBas.deplacement('b');
+        pGauche.deplacement('g');
+        pDroite.deplacement('d');
+        res[0] = pHaut;
+        res[1] = pBas;
+        res[2] = pGauche;
+        res[3] = pDroite;
+        return res;
+        
     }
 
     @Override
