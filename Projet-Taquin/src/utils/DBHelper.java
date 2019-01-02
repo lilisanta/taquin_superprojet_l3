@@ -23,7 +23,7 @@ public class DBHelper {
         List<String> res = new ArrayList<String>();
         Connection con;
         try {
-            con = DriverManager.getConnection("mysql-pware.alwaysdata.net",username,pass);
+            con = DriverManager.getConnection("jdbc:mysql://mysql-pware.alwaysdata.net/pware_scores_projet",username,pass);
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM Scores ORDER BY nbCoups");
             while(rs.next()){
@@ -49,7 +49,7 @@ public class DBHelper {
         List<String> res = new ArrayList<String>();
         Connection con;
         try {
-            con = DriverManager.getConnection("mysql-pware.alwaysdata.net",username,pass);
+            con = DriverManager.getConnection("jdbc:mysql://mysql-pware.alwaysdata.net/pware_scores_projet",username,pass);
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM ScoresCoop ORDER BY nbCoups");
             while(rs.next()){
@@ -75,7 +75,7 @@ public class DBHelper {
         List<String> res = new ArrayList<String>();
         Connection con;
         try {
-            con = DriverManager.getConnection("mysql-pware.alwaysdata.net",username,pass);
+            con = DriverManager.getConnection("jdbc:mysql://mysql-pware.alwaysdata.net/pware_scores_projet",username,pass);
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM ScoresCompet ORDER BY nbCoups");
             while(rs.next()){
@@ -114,7 +114,7 @@ public class DBHelper {
         
         Connection con;
         try {
-            con = DriverManager.getConnection("mysql-pware.alwaysdata.net",username,pass);
+            con = DriverManager.getConnection("jdbc:mysql://mysql-pware.alwaysdata.net/pware_scores_projet",username,pass);
             Statement st = con.createStatement();
             String requete = "INSERT INTO "+nomTable+" VALUES("+pseudo+","+nbCoups+","+temps+","+date+");";
             st.executeQuery(requete);
@@ -130,7 +130,5 @@ public class DBHelper {
         
         return true;
     }
-    
-    
-    
+
 }
