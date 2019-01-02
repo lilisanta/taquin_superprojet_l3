@@ -1,0 +1,30 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package utils;
+
+import java.util.Stack;
+import modele.PlateauConsole;
+
+/**
+ *
+ * @author guillaume
+ */
+public class Aide {
+    private AlgoIA algo;
+    
+    
+    public Aide(String typeAlgo){
+        if(typeAlgo.equals("A*")){
+            this.algo = new AStar();
+        }else if(typeAlgo.equals("IDA*")){
+            this.algo = new IDAStar();
+        }
+    }
+    
+    public PlateauConsole aide(PlateauConsole p){
+        return (PlateauConsole)(this.algo.aide(p).pop());
+    }
+}

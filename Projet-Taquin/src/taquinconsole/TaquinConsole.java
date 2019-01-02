@@ -1,6 +1,7 @@
 
 package taquinconsole;
 
+import modele.PlateauConsole;
 import java.io.IOException;
 import java.util.Scanner;
 import utils.Aide;
@@ -12,7 +13,7 @@ public class TaquinConsole {
      * @param args arguments de la ligne de commande, inutilisés ici
      */
     public static void main(String[] args) throws IOException, Exception {
-       Plateau p = GenerateurPlateau.genererPlateauConsole(3);
+       PlateauConsole p = GenerateurPlateau.genererPlateauConsole(3);
        p = GenerateurPlateau.chargerPlateau("taquin1");
        System.out.println(" Entrez :\n 'h' pour déplcer vers le haut\n"
                +" 'b'pour déplacer vers le haut \n"
@@ -33,7 +34,7 @@ public class TaquinConsole {
                p.sauvegarder("Sauvegarde");
                System.out.println("Sauvegarde réussie");
            }else if(commande == 'c'){
-               p = Plateau.charger("Sauvegarde");
+               p = PlateauConsole.charger("Sauvegarde");
                System.out.println("Chargement réussi");
            
            }else if(commande == 'a'){

@@ -1,4 +1,4 @@
-package taquinconsole;
+package modele;
 
 
 import java.io.File;
@@ -15,19 +15,19 @@ import java.util.Objects;
 /**
  *Classe représentant le plateau de jeu, avec des cases numérotées et une case vide
  */
-public class Plateau implements Serializable, Cloneable{
-    private Case[][] cases;
-    private Case caseVide;
-    private char dernierDepalcement = 0;
+public class PlateauConsole implements Serializable, Cloneable{
+    protected Case[][] cases;
+    protected Case caseVide;
+    protected char dernierDepalcement = 0;
     /**
      * Constructeur du plateau
      * @param c Tableau de cases qui sert à la création du plateau
      */
-    public Plateau(Case[][] c){
+    public PlateauConsole(Case[][] c){
         if(c == null) try {
             throw new Exception("Tableau de cases null");
         } catch (Exception ex) {
-            Logger.getLogger(Plateau.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PlateauConsole.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.cases = c;
         for(int i=0; i < cases.length; i++){
@@ -39,7 +39,7 @@ public class Plateau implements Serializable, Cloneable{
         }
     }
     
-    public Plateau(Plateau p ){
+    public PlateauConsole(PlateauConsole p ){
         int taille = p.getCases().length;
         this.cases = new Case[taille][taille];
         Case[][] c2 = p.getCases();
@@ -171,13 +171,13 @@ public class Plateau implements Serializable, Cloneable{
     }
     
     
-    public static Plateau charger(String nomFich)throws IOException{
-        Plateau p = null;
+    public static PlateauConsole charger(String nomFich)throws IOException{
+        PlateauConsole p = null;
         Object o;
         ObjectInputStream in = new ObjectInputStream((new FileInputStream(nomFich)));
         try {
             o =  in.readObject();
-            p = (Plateau) o;
+            p = (PlateauConsole) o;
             in.close();
         } catch (ClassNotFoundException ex) {
             System.err.println("La partie n'a pas pu être chargée");
@@ -203,13 +203,13 @@ public class Plateau implements Serializable, Cloneable{
         return caseVide;
     }
     
-    public Plateau[] configurationsSuivantesPossibles(){
-        Plateau[] res= new Plateau[4];
+    public PlateauConsole[] configurationsSuivantesPossibles(){
+        PlateauConsole[] res= new PlateauConsole[4];
         //Clonage de plateau;
-        Plateau pHaut = new Plateau(this);
-        Plateau pBas = new Plateau(this);
-        Plateau pGauche = new Plateau(this);
-        Plateau pDroite = new Plateau(this);
+        PlateauConsole pHaut = new PlateauConsole(this);
+        PlateauConsole pBas = new PlateauConsole(this);
+        PlateauConsole pGauche = new PlateauConsole(this);
+        PlateauConsole pDroite = new PlateauConsole(this);
         pHaut.deplacement('h');
         pBas.deplacement('b');
         pGauche.deplacement('g');
@@ -242,7 +242,7 @@ public class Plateau implements Serializable, Cloneable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Plateau other = (Plateau) obj;
+        final PlateauConsole other = (PlateauConsole) obj;
         if (this.dernierDepalcement != other.dernierDepalcement) {
             return false;
         }

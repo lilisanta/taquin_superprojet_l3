@@ -6,12 +6,12 @@
 package utils;
 
 import java.util.Stack;
-import taquinconsole.Plateau;
+import modele.PlateauConsole;
 
 /**
  *
  * @author guillaume
  */
 public interface AlgoIA {
-    public Stack aide(Plateau p);
+    public Stack aide(PlateauConsole p);
 }

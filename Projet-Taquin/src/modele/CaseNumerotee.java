@@ -1,4 +1,4 @@
-package taquinconsole;
+package modele;
 
 /**
  *Cette classe représente une classe portant un numéro (non vide)
@@ -34,5 +34,10 @@ public class CaseNumerotee extends Case{
             return "| "+this.numero+"|";
         }
         
+    }
+
+    @Override
+    public boolean estVide() {
+        return false;
     }
 }

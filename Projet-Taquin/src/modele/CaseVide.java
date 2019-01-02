@@ -1,4 +1,4 @@
-package taquinconsole;
+package modele;
 
 
 /**
@@ -17,5 +17,10 @@ public class CaseVide extends Case{
     @Override
     public String toString(){
         return "| .|";
+    }
+
+    @Override
+    public boolean estVide() {
+       return true;
     }
 }

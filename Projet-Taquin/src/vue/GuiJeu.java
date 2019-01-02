@@ -7,6 +7,8 @@ package vue;
 
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
@@ -25,6 +27,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javax.swing.JOptionPane;
+import utils.DBHelper;
 
 /**
  *
@@ -135,6 +138,8 @@ public class GuiJeu implements Panel{
         plato=pg;
         plato.setTranslateX(190);
         plato.setTranslateY(15);
+        nbcoup=plato.getCoups();
+        time=plato.getTime();
         
         scene.setOnKeyPressed(new EventHandler(){
             @Override
@@ -173,7 +178,9 @@ public class GuiJeu implements Panel{
                 System.out.println("fini="+fini);
                 if(fini){
                     System.out.println("Victoire");
-                    distri.changePanel("menu");
+                    enregistrementBDD();
+                    distri.finJeu(plato.getImage());
+                    distri.changePanel("Victoire");
                 }
                 
                     System.out.println("********************************\n\n\n");
@@ -267,6 +274,21 @@ public class GuiJeu implements Panel{
         
     }
     
-    
+    public void enregistrementBDD(){
+        String temps=time+"";
+        SimpleDateFormat formater = null;
+        Date aujourdhui = new Date();
+        formater = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
+        String date=formater.format(aujourdhui);
+        JOptionPane jop=new JOptionPane();
+        String res=jop.showInputDialog(null,"Veillez entrer un pseudo","sauvegarde");
+        try{
+        if(!res.equals("")){
+             DBHelper.insertScores("solo", res, nbcoup, temps, date);
+        }
+        }catch(NullPointerException ex){
+            
+        }
+    }
     
 }

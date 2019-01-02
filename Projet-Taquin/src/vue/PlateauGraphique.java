@@ -22,10 +22,9 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.util.Duration;
-import taquinconsole.Case;
-import taquinconsole.CaseNumerotee;
-import taquinconsole.CaseVide;
-import taquinconsole.Plateau;
+import modele.Case;
+import modele.CaseNumerotee;
+import modele.CaseVide;
 import utils.ImageUtils;
 
 /**
@@ -34,9 +33,10 @@ import utils.ImageUtils;
  */
 public class PlateauGraphique extends GridPane implements Serializable {
 
-    
-    private Plateau plateau;
+    private ControleurClavier clavier;
+    private modele.PlateauGraphique plateau;
     private int tailleCase=4;
+    private int coups,time;
 
     public PlateauGraphique() {
         this.setMinWidth(420);
@@ -79,10 +79,12 @@ public class PlateauGraphique extends GridPane implements Serializable {
 
         
         try {
-            plateau=Plateau.charger("media/plateau/"+partie);
+            plateau=modele.PlateauGraphique.charger("media/plateau/"+partie);
             //plateau = GenerateurPlateau.chargerPlateau("media/plateau/" + partie);
+            coups=plateau.getNbcoups();
+            time=plateau.getTemps();
             tailleCase=plateau.getCases().length;
-            ImageUtils.split("crash_test_taquin.jpg", tailleCase);
+            ImageUtils.split("media/images/"+plateau.getImage(), tailleCase);
             Case[][] cases = plateau.getCases();
             for (int i = 0; i < cases.length; i++) {
                 for (int j = 0; j < cases[i].length; j++) {
@@ -104,7 +106,7 @@ public class PlateauGraphique extends GridPane implements Serializable {
             ex.printStackTrace();
         }
         
-        
+        clavier = new ControleurClavier(this);
 
     }
 
@@ -221,6 +223,18 @@ public class PlateauGraphique extends GridPane implements Serializable {
         }
 
         //System.out.println("*********************************************");
+    }
+
+    public int getCoups() {
+        return coups;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public String getImage() {
+        return plateau.getImage();
     }
 
     
