@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tmppourpatoucasse;
+package vue;
 
 
 import javafx.event.EventHandler;
@@ -17,6 +17,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
+import vue.DistributeurPanel;
+import vue.Panel;
+import vue.SonGraph;
 
 /**
  *

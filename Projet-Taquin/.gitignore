@@ -1,5 +1,5 @@
 build/*.class
 nbproject/*
 nbproject/*.*
-media/*
+media/images/tmp/*
 src/testgui/*
