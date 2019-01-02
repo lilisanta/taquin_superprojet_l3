@@ -97,7 +97,7 @@ public class DBHelper {
         return res;
     }
     
-    public boolean insertScores(String typePartie,String pseudo, int nbCoups, String temps,String date){
+    public static boolean insertScores(String typePartie,String pseudo, int nbCoups, String temps,String date){
         String nomTable = "";
         switch(typePartie){
             case "solo":
@@ -116,8 +116,8 @@ public class DBHelper {
         try {
             con = DriverManager.getConnection("jdbc:mysql://mysql-pware.alwaysdata.net/pware_scores_projet",username,pass);
             Statement st = con.createStatement();
-            String requete = "INSERT INTO "+nomTable+" VALUES("+pseudo+","+nbCoups+","+temps+","+date+");";
-            st.executeQuery(requete);
+            String requete = "INSERT INTO "+nomTable+" VALUES('"+pseudo+"','"+nbCoups+"','"+temps+"','"+date+"');";
+            st.executeUpdate(requete);
             con.close();
         } catch (SQLException ex) {
            System.err.println("Connexion impossible à la base de données");
