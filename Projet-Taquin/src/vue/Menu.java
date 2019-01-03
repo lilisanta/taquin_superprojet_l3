@@ -38,11 +38,9 @@ public class Menu implements Panel{
     
     public Menu(DistributeurPanel distri){
         Group group=new Group();
-        String image=System.getProperty("user.dir")+"\\media\\images\\";
-        image=image.replace('\\','/');
-        String source="file:///"+System.getProperty("user.dir")+"\\media\\images\\sables.jpg";
+        String source="file:///"+System.getProperty("user.dir")+"\\media\\images\\";
         source=source.replace('\\', '/');
-        scene=new Scene(group,800,600, new ImagePattern(new Image(source)));
+        scene=new Scene(group,800,600, new ImagePattern(new Image(source+"fond.png")));
         //scene=new Scene(group,800,600, Color.rgb(225,0,135));
         
         
@@ -85,7 +83,7 @@ public class Menu implements Panel{
         });
         vb.getChildren().add(solo);
         
-        Label coop=new Label("Coopération");
+        Label coop=new Label("Guide");
         coop.setAlignment(Pos.CENTER);
         coop.setFont(fs);
         coop.setTextFill(Color.rgb(17, 77, 255));
@@ -93,14 +91,14 @@ public class Menu implements Panel{
         coop.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event) {
-                //distri.changePanel("coop");
-                JOptionPane.showMessageDialog(null, "Partie non-developpée", "Information", JOptionPane.INFORMATION_MESSAGE);
+                distri.changePanel("guide");
+                //JOptionPane.showMessageDialog(null, "Partie non-developpée", "Information", JOptionPane.INFORMATION_MESSAGE);
             }
             
         });
         vb.getChildren().add(coop);
         
-        Label comp=new Label("Compétition");
+        Label comp=new Label("Classement");
         comp.setAlignment(Pos.CENTER);
         comp.setFont(fs);
         comp.setTextFill(Color.rgb(17, 77, 255));
@@ -108,7 +106,8 @@ public class Menu implements Panel{
         comp.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event) {
-                JOptionPane.showMessageDialog(null, "Partie non-developpée", "Information", JOptionPane.INFORMATION_MESSAGE);
+                distri.changePanel("classement");
+//JOptionPane.showMessageDialog(null, "Partie non-developpée", "Information", JOptionPane.INFORMATION_MESSAGE);
             }
             
         });

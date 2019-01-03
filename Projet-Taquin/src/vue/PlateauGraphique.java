@@ -25,6 +25,7 @@ import javafx.util.Duration;
 import modele.Case;
 import modele.CaseNumerotee;
 import modele.CaseVide;
+import modele.PlateauImage;
 import utils.ImageUtils;
 
 /**
@@ -33,8 +34,7 @@ import utils.ImageUtils;
  */
 public class PlateauGraphique extends GridPane implements Serializable {
 
-    private ControleurClavier clavier;
-    private modele.PlateauGraphique plateau;
+    private PlateauImage plateau;
     private int tailleCase=4;
     private int coups,time;
 
@@ -42,33 +42,6 @@ public class PlateauGraphique extends GridPane implements Serializable {
         this.setMinWidth(420);
         this.setMaxWidth(420);
         this.setMinHeight(420);
-        /*try {
-            plateau = GenerateurPlateau.chargerPlateau("taquin1");
-            ImageUtils.split("crash_test_taquin.jpg", tailleCase);
-            Case[][] cases = plateau.getCases();
-            int compte = 1;
-            for (int i = 0; i < cases.length; i++) {
-                for (int j = 0; j < cases[i].length; j++) {
-                    Case courante = cases[i][j];
-                    if (courante instanceof CaseNumerotee) {
-                        Label l = new Label("" + ((CaseNumerotee) courante).getNum());
-                        // l.setStyle("-fx-background-image: url('media/images/tmp/"+compte+".png∖');");
-                        l.setMinWidth(420 / tailleCase);
-                        l.setMinHeight(420 / tailleCase);
-                        l.setAlignment(Pos.CENTER);
-                        String source = "file:///" + System.getProperty("user.dir") + "∖∖media∖∖images∖∖tmp∖∖" + compte + ".png";
-                        source = source.replace("∖∖", "/");
-                        l.setBackground(new Background(new BackgroundFill(new ImagePattern(new Image(source)), CornerRadii.EMPTY, Insets.EMPTY)));
-                        this.add(l, i, j);
-                        compte++;
-                    }
-                }
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-
-        }*/
-        //clavier = new ControleurClavier(this);
         this.setStyle("-fx-background-color: rgb(205,205,205);");
     }
 
@@ -79,7 +52,7 @@ public class PlateauGraphique extends GridPane implements Serializable {
 
         
         try {
-            plateau=modele.PlateauGraphique.charger("media/plateau/"+partie);
+            plateau=PlateauImage.charger("media/plateau/"+partie);
             //plateau = GenerateurPlateau.chargerPlateau("media/plateau/" + partie);
             coups=plateau.getNbcoups();
             time=plateau.getTemps();
@@ -105,9 +78,6 @@ public class PlateauGraphique extends GridPane implements Serializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        
-        clavier = new ControleurClavier(this);
-
     }
 
     public boolean deplacement(String direction) {

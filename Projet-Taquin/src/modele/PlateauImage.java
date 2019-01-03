@@ -17,7 +17,7 @@ import java.io.Serializable;
 /**
  *Classe représentant le plateau de jeu, avec des cases numérotées et une case vide
  */
-public class PlateauGraphique extends PlateauConsole implements Serializable{
+public class PlateauImage extends PlateauConsole implements Serializable{
     private int nbcoups,temps;
     private String image;
     
@@ -25,7 +25,7 @@ public class PlateauGraphique extends PlateauConsole implements Serializable{
      * Constructeur du plateau
      * @param c Tableau de cases qui sert à la création du plateau
      */
-    public PlateauGraphique(Case[][] c, int coups, int time, String imageFond){
+    public PlateauImage(Case[][] c, int coups, int time, String imageFond){
         super(c);
         nbcoups=coups;
         temps=time;
@@ -85,9 +85,9 @@ public class PlateauGraphique extends PlateauConsole implements Serializable{
         
     
     
-    public static PlateauGraphique charger(String nomFich)throws IOException{
+    public static PlateauImage charger(String nomFich)throws IOException{
 
-        PlateauGraphique p=null;
+        PlateauImage p=null;
         
         BufferedReader in = new BufferedReader(new FileReader(nomFich));
         String imageFond=in.readLine();
@@ -113,7 +113,7 @@ public class PlateauGraphique extends PlateauConsole implements Serializable{
         }
         }
         
-        p=new PlateauGraphique(cases,coups,temps,imageFond);
+        p=new PlateauImage(cases,coups,temps,imageFond);
         
         return p;
     }

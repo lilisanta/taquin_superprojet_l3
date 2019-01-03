@@ -22,16 +22,12 @@ public class Musik {
 
     public static void initMusik() {
 
-        String src = "file:///C:/Users/Mathieu/Documents/NetBeansProjects/taquin_superprojet_l3/Projet-Taquin/media/music/";
-        String srcT = "file://media/music/";
-        //String internetSrc="https://www.youtube.com/watch?v=rzsGK96V2cQ";
-
         String user = "file:///" + System.getProperty("user.dir") + "\\media\\music\\";
         String source = user.replace('\\', '/');
 
-        Media musikJeu = new Media(source + "28.mp3");
-        Media musikMenu = new Media(src + "testMedia.mp3");
-        Media musikDefault = new Media(src + "28.mp3");
+        Media musikJeu = new Media(source + "jeu.mp3");
+        Media musikMenu = new Media(source + "menu.mp3");
+        Media musikDefault = new Media(source + "victoire.mp3");
 
         hm.put("menu", musikMenu);
         hm.put("solo", musikMenu);
