@@ -36,16 +36,17 @@ public class GenerateurPlateau {
         boolean plateauValide = false; // Pour savoir si on doit recréer un plateau
         int[] valeurs = new int[taille * taille]; // Valeurs à mélanger
         int[] valeursPourTrier = new int[taille * taille]; ; // Valeurs pour la création des cases
-        valeurs[0] = 0;
+        valeurs[taille-1] = 0;
         if (taille > 2) {
             while (!plateauValide) {
-                for (int i = 1; i < taille * taille; i++) {
-                    valeurs[i] = i;
+                for (int i = 0; i < (taille * taille)-1; i++) {
+                    valeurs[i] = i+1;
                 }
 
                 //On mélange le tableau
                 Random rnd = new Random();
-                for (int i = valeurs.length - 1; i > 0; i--) {
+               
+                for (int i = valeurs.length - 2; i > 0; i--) {
                     int index = rnd.nextInt(i + 1);
                     int tmp = valeurs[index];
                     valeurs[index] = valeurs[i];
@@ -57,6 +58,7 @@ public class GenerateurPlateau {
                     valeursPourTrier[i] = valeurs[i];
                     //System.out.print(i + "|");
                 }
+                
                 //*****
                 for (int i = 0; i < valeursPourTrier.length - 1; i++) {
                     int min = i;
@@ -101,8 +103,6 @@ public class GenerateurPlateau {
             }
 
             p = new PlateauConsole(casesRes);
-            System.err.println("Debug : " + p);
-
         } else {
             throw new Exception("Plateau trop petit");
         }
