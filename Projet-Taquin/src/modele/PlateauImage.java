@@ -2,17 +2,10 @@ package modele;
 
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.PrintWriter;
 import java.io.Serializable;
 /**
  *Classe représentant le plateau de jeu, avec des cases numérotées et une case vide, ainsi que le compte du nombre de coups, du temps passé, et de l'image de fond.
@@ -37,6 +30,11 @@ public class PlateauImage extends Plateau implements Serializable{
         
     }
     
+    /**
+     * Méthode qui se charge du déplacement et de la vérification de sa possibilité
+     * @param direction Caractère représentant la direction du déplacement
+     * @return true Si le déplacement a pu être effectué
+     */
     @Override
     public boolean deplacement(char direction){
         super.deplacement(direction);
@@ -58,27 +56,32 @@ public class PlateauImage extends Plateau implements Serializable{
         return res;
     }
     
-    @Override
-    public boolean sauvegarder(String nomSauvegarde){
+    /**
+     * permet de sauvegarder les informations du plateau dans un fichier
+     * @param nomSauvegarde nom du fichier contenant les informations
+     * @param coups nombre de coups initié par le joueur
+     * @param time temps efféctué au moment de la sauvegarde
+     * @return retourne true si la sauvegarde à bien été faite
+     */
+    public boolean sauvegarder(String nomSauvegarde,int coups, int time){
         try {
-            BufferedWriter out=new BufferedWriter(new FileWriter(nomSauvegarde));
-            out.write(image);
-            out.newLine();
-            out.write(nbcoups);
-            out.newLine();
-            out.write(temps);
-            out.newLine();
-            out.write(cases.length);
+            PrintWriter out=new PrintWriter(new FileWriter("media/plateau/"+nomSauvegarde));
+            
+            out.println(image);
+            out.println(coups);
+            out.println(time);
+            out.println(cases.length);
             for(int i=0; i < this.cases.length; i++){
                 for(int j=0; j< this.cases[i].length;j++){
-                    out.newLine();
                     if(!cases[i][j].estVide()){
-                        out.write(((CaseNumerotee)cases[i][j]).getNum());
+                        out.println(((CaseNumerotee)cases[i][j]).getNum());
                     }else{
-                        out.write("V");
+                        out.println("V");
                     }
                 }
             }
+            out.flush();
+            out.close();
         } catch (IOException ex) {
             ex.printStackTrace();
             return false;

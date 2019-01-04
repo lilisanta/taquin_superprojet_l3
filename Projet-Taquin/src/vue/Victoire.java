@@ -13,6 +13,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -25,7 +27,7 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 /**
- *
+ * Panel de victoire
  * @author Mathieu
  */
 class Victoire implements Panel{
@@ -35,16 +37,23 @@ class Victoire implements Panel{
     private Group groupe;
     private String source;
     
-    public Victoire(DistributeurPanel distri){
+    /**
+     * Constructeur du panel de victoire
+     * @param distri permet passer d'un panel à un autre
+     */
+    public Victoire(DistributeurPanel distri, String image){
         groupe=new Group();
-        source = "file:///" + System.getProperty("user.dir") + "\\media\\images\\";//sable.jpg";
+        source = "file:///" + System.getProperty("user.dir") + "\\media\\images\\";
         source = source.replace('\\', '/');
 
         
         scene=new Scene(groupe,800,600,new ImagePattern(new Image(source+"fond.png")));
         
+        afficheImage(image);
         
-        
+        DropShadow ds=new DropShadow();
+        ds.setBlurType(BlurType.ONE_PASS_BOX);
+        ds.setColor(Color.BLACK);
         
         Label victoire=new Label("Victoire");
         victoire.setMinWidth(100);
@@ -54,6 +63,7 @@ class Victoire implements Panel{
         victoire.setFont(new Font("papyrus",48));
         victoire.setAlignment(Pos.CENTER);
         victoire.setTextFill(Color.rgb(235,235,235));
+        victoire.setEffect(ds);
         
         st = new ScaleTransition(Duration.millis(4000), victoire);
         st.setToX(3);
@@ -76,6 +86,12 @@ class Victoire implements Panel{
         groupe.getChildren().add(victoire);
     }
     
+    
+    /**
+     * méthode hérité de Panel
+     * lance l'animation à chaque appel
+     * @return la scene graphique
+     */
     @Override
     public Scene getScene() {
         st.jumpTo(Duration.ZERO);
@@ -83,7 +99,11 @@ class Victoire implements Panel{
         return scene;
     }
 
-    void afficheImage(String image) {
+    /**
+     * affiche l'image que le joueur à reconstituer précédemment
+     * @param image nom de l'image à afficher
+     */
+    private void afficheImage(String image) {
         Label fond=new Label();
         fond.setBackground(new Background(new BackgroundFill(new ImagePattern(new Image(source+image)), CornerRadii.EMPTY, Insets.EMPTY)));
         fond.setMinWidth(420);

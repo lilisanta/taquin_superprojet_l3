@@ -28,7 +28,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 
 /**
- *
+ * classe informant sur la manière de jouer au taquin
  * @author Mathieu
  */
 public class Guide implements Panel{
@@ -36,11 +36,14 @@ public class Guide implements Panel{
     private Scene scene;
     private SonGraph son;
     
+    /**
+     * Constructeur du Panel de guide
+     * @param dp permet de passer d'un panel à un autre
+     */
     public Guide(DistributeurPanel dp){
         Group groupe=new Group();
-        //scene=new Scene(groupe,800,600,Color.rgb(225,225,255));
         
-        String source = "file:///" + System.getProperty("user.dir") + "\\media\\images\\";//sable.jpg";
+        String source = "file:///" + System.getProperty("user.dir") + "\\media\\images\\";
         source = source.replace('\\', '/');
 
         
@@ -48,6 +51,7 @@ public class Guide implements Panel{
         
         Font fs = Font.font("Papyrus", FontPosture.REGULAR, 18);
         
+        // Barre de navigation
         VBox vb=new VBox();
         vb.setSpacing(25);
         
@@ -58,7 +62,6 @@ public class Guide implements Panel{
 
             public void handle(MouseEvent event) {
                 dp.changePanel("menu");
-                System.out.println("Clicketi clicketa");
             }
 
         });
@@ -68,6 +71,7 @@ public class Guide implements Panel{
         son.setTranslateY(20);
         
         
+        // Texte et images de la marche à suivre du jeu
         Label direction=new Label(" - Pour déplacer les cases du taquin, on utilise les touches Z,S,Q,D.");
         direction.setFont(fs);
         direction.setTranslateX(20);
@@ -108,6 +112,10 @@ public class Guide implements Panel{
         
     }
     
+    /**
+     * méthode hérité de Panel
+     * @return la scene graphique
+     */
     @Override
     public Scene getScene() {
         

@@ -36,7 +36,7 @@ import javafx.scene.text.FontPosture;
 import javafx.util.Duration;
 
 /**
- *
+ * classe permettant la création ou le chargement des parties
  * @author Mathieu
  */
 public class MenuSolo implements Panel {
@@ -48,9 +48,14 @@ public class MenuSolo implements Panel {
     private String imageSource="image-taquin1.jpg";
     private SonGraph son;
 
+    
+    /**
+     * Constructeur du panel de menu servant à créer ou charger une partie
+     * @param dp 
+     */
     public MenuSolo(DistributeurPanel dp) {
         Group group = new Group();
-        source = "file:///" + System.getProperty("user.dir") + "\\media\\images\\";//sable.jpg";
+        source = "file:///" + System.getProperty("user.dir") + "\\media\\images\\";
         source = source.replace('\\', '/');
         scene = new Scene(group, 800, 600, new ImagePattern(new Image(source + "fond.png")));
 
@@ -60,12 +65,10 @@ public class MenuSolo implements Panel {
         // Barre de Navigation
         Label menu = new Label("Menu");
         menu.setFont(fs);
-        //menu.setTextFill(Color.rgb(27, 27, 235));
         menu.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             public void handle(MouseEvent event) {
                 dp.changePanel("menu");
-                System.out.println("Clicketi clicketa");
             }
 
         });
@@ -397,20 +400,23 @@ public class MenuSolo implements Panel {
         choixImageBas.getChildren().addAll(image4,image5);
         
         
-        
+        // choix aléatoire de difficulté et d'image
         Label aleatoire = new Label("Aléatoire");
         aleatoire.setFont(fs);
         aleatoire.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                int numImage=(int) Math.random()*5;
-                int nbCase=(int) Math.random()*5;
+                int numImage=(int) (Math.random()*6);
+                int nbCase=(int) (Math.random()*6);
                 if(nbCase<3) nbCase=3;
+                if(numImage<1) numImage=1;
                 tailleCase=nbCase;
                 imageSource="image-taquin"+numImage+".jpg";
+                System.out.println("numImage="+numImage+" | nbCase="+nbCase);
             }
         });
         
+        // lance la partie
         Label lancer=new Label("Lancer Partie");
         lancer.setFont(fs);
         lancer.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -443,28 +449,16 @@ public class MenuSolo implements Panel {
         
         
         
-        
+        // liste des parties sauvegardées
         lv.setItems(chargerListView());
-
-        //lv.setBackground(new Background(new BackgroundFill(new ImagePattern(new Image(source+"fondP1.png")),CornerRadii.EMPTY,Insets.EMPTY)));
-        /*lv.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println(lv.getSelectionModel().getSelectedItem());
-                lv.getSelectionModel().getSelectedItem().setBackground(new Background(new BackgroundFill(Color.rgb(0,0,255), CornerRadii.EMPTY, Insets.EMPTY)));
-            }
-
-        });*/
         lv.setMinWidth(500);
         
-
+        // lance la partie selectionnée
         Label start = new Label("Lancer Partie");
         start.setFont(fs);
         start.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                System.out.println("Label="+lv.getSelectionModel().getSelectedItem());
-                System.out.println("Text="+lv.getSelectionModel().getSelectedItem().getText());
                 PlateauGraphique pg = new PlateauGraphique(lv.getSelectionModel().getSelectedItem().getText());
                 dp.nouveauJeu(pg, "Solo");
                 dp.changePanel("jeu");
@@ -472,6 +466,7 @@ public class MenuSolo implements Panel {
         });
         start.setTranslateX(190);
 
+        // deux parties alternativement visibles du menu
         GridPane creerOption = new GridPane();
         creerOption.add(choixDifficulte, 0, 0);
         creerOption.add(voption, 0, 1);
@@ -515,7 +510,7 @@ public class MenuSolo implements Panel {
         });
         
         
-
+        // permet l'affichage spécique de la liste des sauvegardes
         lv.setCellFactory(livi -> new ListCell<Label>() {
             private final Label label = new Label();
 
@@ -543,6 +538,11 @@ public class MenuSolo implements Panel {
         
     }
 
+    
+    /**
+     * méthode pour charger la liste des sauvegardes
+     * @return la liste à afficher
+     */
     private ObservableList<Label> chargerListView() {
         ObservableList<Label> oal = FXCollections.observableArrayList();
         File repertoire = new File(System.getProperty("user.dir") + "\\media\\plateau");
@@ -558,6 +558,12 @@ public class MenuSolo implements Panel {
         return oal;
     }
 
+    
+    /**
+     * méthode hérité de Panel
+     * effectue un chargement de la liste à chaque appel
+     * @return 
+     */
     @Override
     public Scene getScene() {
         son.afficheSon();

@@ -20,7 +20,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 
 /**
- *
+ * classe d'accueil menant au différentes parties de l'application
  * @author Mathieu
  */
 public class Menu implements Panel{
@@ -28,13 +28,15 @@ public class Menu implements Panel{
     private Scene scene;
     private SonGraph son;
     
-    
+    /**
+     * Constructeur de Panel servant de menu d'accueil
+     * @param distri permet de passer d'un panel à un autre
+     */
     public Menu(DistributeurPanel distri){
         Group group=new Group();
         String source="file:///"+System.getProperty("user.dir")+"\\media\\images\\";
         source=source.replace('\\', '/');
         scene=new Scene(group,800,600, new ImagePattern(new Image(source+"fond.png")));
-        //scene=new Scene(group,800,600, Color.rgb(225,0,135));
         
         
         
@@ -48,15 +50,14 @@ public class Menu implements Panel{
         Label titre=new Label("GEMTAQUIN");
         titre.setMinHeight(75);
         titre.setMinWidth(scene.getWidth()+9);
-        //titre.setStyle("-fx-background-color:rgb(67,247,47);-fx-background-radius:0px 0px 20px 20px;-fx-padding:20px");
         titre.setFont(new Font(45));
         titre.setTextFill(Color.rgb(123,127,125));
         titre.setAlignment(Pos.CENTER);
         
         InnerShadow innerShadow = new InnerShadow();
- innerShadow.setOffsetX(4);
- innerShadow.setOffsetY(4);
- innerShadow.setColor(Color.rgb(34,30,30));
+        innerShadow.setOffsetX(4);
+        innerShadow.setOffsetY(4);
+        innerShadow.setColor(Color.rgb(34,30,30));
  
         titre.setEffect(innerShadow);
  
@@ -85,7 +86,6 @@ public class Menu implements Panel{
             @Override
             public void handle(MouseEvent event) {
                 distri.changePanel("guide");
-                //JOptionPane.showMessageDialog(null, "Partie non-developpée", "Information", JOptionPane.INFORMATION_MESSAGE);
             }
             
         });
@@ -100,7 +100,6 @@ public class Menu implements Panel{
             @Override
             public void handle(MouseEvent event) {
                 distri.changePanel("classement");
-//JOptionPane.showMessageDialog(null, "Partie non-developpée", "Information", JOptionPane.INFORMATION_MESSAGE);
             }
             
         });
@@ -133,12 +132,14 @@ public class Menu implements Panel{
         vb.getChildren().add(son);
         vb.getChildren().add(copyright);
         
-        //vb.setStyle("-fx-background-image: url('media/images/fondP1.png')");
-        //vb.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
         
         group.getChildren().add(vb);
     }
     
+    /**
+     * méthode hérité de Panel
+     * @return la scene graphique
+     */
     public Scene getScene(){
         son.afficheSon();
         return scene;

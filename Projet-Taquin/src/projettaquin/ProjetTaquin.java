@@ -13,18 +13,17 @@ import javafx.stage.Stage;
 import vue.DistributeurPanel;
 
 /**
- *
+ * classe principale qui lance l'application en version graphique
  * @author guillaume
  */
 public class ProjetTaquin extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        /*Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
-        Scene scene = new Scene(root);
+        stage.setResizable(false);
+        stage.setTitle("Projet Taquin");
         
-        stage.setScene(scene);*/
         DistributeurPanel dp=new DistributeurPanel(stage);
         dp.changePanel("menu");
         

@@ -30,7 +30,7 @@ import javafx.scene.text.FontPosture;
 import utils.DBHelper;
 
 /**
- *
+ * classe permettant de voir les joueurs et leurs performances
  * @author Mathieu
  */
 public class Classement implements Panel {
@@ -40,24 +40,20 @@ public class Classement implements Panel {
     private String source;
     private SonGraph son;
 
-    public Classement() {
-        Group groupe = new Group();
-        scene = new Scene(groupe, 800, 600, Color.rgb(225, 225, 255));
-
-    }
-
-    Classement(DistributeurPanel dp) {
+    
+    /**
+     * Constructeur du panel Classement
+     * @param dp permet de passer d'un panel à un autre
+     */
+    public Classement(DistributeurPanel dp) {
         Group groupe = new Group();
         source = "file:///" + System.getProperty("user.dir") + "\\media\\images\\";//sable.jpg";
         source = source.replace('\\', '/');
 
         scene = new Scene(groupe, 800, 600, new ImagePattern(new Image(source + "fond.png")));
 
-        Font fs = Font.font("Papyrus", FontPosture.REGULAR, 18);
-
         
-        
-        
+        // Barre de navigation
         VBox vb = new VBox();
         vb.setSpacing(25);
 
@@ -68,7 +64,6 @@ public class Classement implements Panel {
 
             public void handle(MouseEvent event) {
                 dp.changePanel("menu");
-                System.out.println("Clicketi clicketa");
             }
 
         });
@@ -80,7 +75,7 @@ public class Classement implements Panel {
         
         
         
-        
+        // TableView affiche la table de classement
         tv.setMinWidth(760);
         tv.setTranslateX(20);
 
@@ -123,6 +118,9 @@ public class Classement implements Panel {
         groupe.getChildren().add(son);
     }
 
+    /**
+     * charge les données dans la table
+     */
     private void chargerListView() {
         ObservableList<Joueur> oal = FXCollections.observableArrayList();
         List<String> dataDB = DBHelper.getScoresSolo();
@@ -138,6 +136,11 @@ public class Classement implements Panel {
 
     }
 
+    /**
+     * méthode hérité de Panel
+     * effectue un rechargement de la table à chaque appel
+     * @return la scene graphique
+     */
     @Override
     public Scene getScene() {
         son.afficheSon();
@@ -146,7 +149,10 @@ public class Classement implements Panel {
     }
     
     
-    
+    /**
+     * Méthode pour donnée un affichage spécial aux colonnes de la table
+     * @return la cellule
+     */
     private TableCell<Joueur, String> colonneStyle(){
         TableCell<Joueur, String> cell = new TableCell<Joueur, String>() {
 
@@ -174,6 +180,9 @@ public class Classement implements Panel {
     
     
 
+    /**
+     * Classe interne pour gérer les colonnes de la table
+     */
     private class Joueur {
 
         String pseudo, nbcoup, temps;

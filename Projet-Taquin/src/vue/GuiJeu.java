@@ -32,7 +32,7 @@ import javax.swing.JOptionPane;
 import utils.DBHelper;
 
 /**
- *
+ * classe permettant de jouer au taquin
  * @author Mathieu
  */
 public class GuiJeu implements Panel {
@@ -46,21 +46,26 @@ public class GuiJeu implements Panel {
     private Timeline timeline;
     private SonGraph son;
 
+    
+    /**
+     * Constructeur de la scene graphique du jeu
+     * @param distri permet de passer d'un panel à un autre
+     * @param pg le plateau graphique jouable
+     * @param type le type de partie initialement prévu (Solo, coopération ou compétition)
+     */
     public GuiJeu(DistributeurPanel distri, PlateauGraphique pg, String type) {
         Group group = new Group();
-        //scene=new Scene(group,800,600, Color.rgb(244, 219, 106, 1));
-        String image = System.getProperty("user.dir") + "\\media\\images\\";
-        image = image.replace('\\', '/');
-
-        String user = "file:///" + image + "fond.png";
-        String source = user.replace('\\', '/');
-        scene = new Scene(group, 800, 600, new ImagePattern(new Image(source)));
+        String source = "file:///" + System.getProperty("user.dir") + "\\media\\images\\";
+        source = source.replace('\\', '/');
+        scene = new Scene(group, 800, 600, new ImagePattern(new Image(source+ "fond.png")));
 
         HBox hb = new HBox();
         VBox vb = new VBox();
 
         Font fs = Font.font("Papyrus", FontPosture.REGULAR, 30);
 
+        
+        // Barre de navigation
         Label menu = new Label("Menu");
         menu.setFont(fs);
         menu.setTextFill(Color.rgb(27, 27, 235));
@@ -71,7 +76,6 @@ public class GuiJeu implements Panel {
             public void handle(MouseEvent event) {
                 timeline.stop();
                 JOptionPane jop = new JOptionPane();
-                //jop.setComponentZOrder(null, 100);
                 int res = jop.showOptionDialog(null, "Voulez-vous quitter la partie ?\nToute partie non-sauvegardée sera perdue !",
                         "Attention", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
                 if (res == JOptionPane.OK_OPTION) {
@@ -127,19 +131,20 @@ public class GuiJeu implements Panel {
         s.setMinWidth(scene.getWidth() + 100);
         s.setEffect(new DropShadow(10, 0, 5, Color.BLACK));
 
+        
+        // initialisation de la partie
         plato = pg;
         plato.setTranslateX(190);
         plato.setTranslateY(15);
         nbcoup = plato.getCoups();
         time = plato.getTime();
 
+        
+        // controleur 
         scene.setOnKeyPressed(new EventHandler() {
             @Override
             public void handle(Event event) {
-                //System.out.println(event.getSource());
                 KeyEvent ke = (KeyEvent) event;
-                //System.out.println(ke.getCharacter());
-                System.out.println("*******************************************************");
                 boolean fini = false;
                 switch (ke.getText()) {
                     case "s":
@@ -163,24 +168,22 @@ public class GuiJeu implements Panel {
                         setNbCoup();
                         break;
                     default:
-                        System.out.println("touche non utile");
                         break;
 
                 }
-                System.out.println("fini=" + fini);
+                
                 if (fini) {
                     timeline.stop();
-                    System.out.println("Victoire");
                     enregistrementBDD();
                     distri.finJeu(plato.getImage());
                     distri.changePanel("Victoire");
                 }
 
-                System.out.println("********************************\n\n\n");
             }
 
         });
 
+        // affichage des statistiques
         HBox info = new HBox();
         info.setTranslateX(200);
         info.setTranslateY(20);
@@ -194,37 +197,22 @@ public class GuiJeu implements Panel {
         temps.setText("temps : " + timeToHMS(time));
         temps.setFont(fs);
 
-        /*Button aide=new Button("Aide");
-        aide.setOnMousePressed(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event) {
-                
-            }
-            
-        });
-        aide.setOnMouseClicked(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event) {
-                
-            }
-            
-        });
-        aide.setFont(Font.font("papyrus"));*/
+       
         info.getChildren().add(nbCoups);
         info.getChildren().add(temps);
-        //info.getChildren().add(aide);
 
         vb.getChildren().add(hb);
         vb.getChildren().add(s);
         vb.getChildren().add(plato);
         vb.getChildren().add(info);
 
+        
+        // Timer de la partie
         timeline = new Timeline();
         timeline.getKeyFrames().addAll(
                 new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        System.out.println("temps=" + timeToHMS(time));
                         temps.setText("temps : " + timeToHMS(time++));
                     }
                 })
@@ -233,29 +221,53 @@ public class GuiJeu implements Panel {
         timeline.setCycleCount(Timeline.INDEFINITE);
 
         group.getChildren().add(vb);
-        //scene.getStylesheets().add("GuiCss.css");
 
     }
 
+    
+    /**
+     * méthode pour lancer la sauvegarde du plateau
+     * @param nomSauvegarde nom du fichier de sauvegarde
+     */
     private void sauvegarder(String nomSauvegarde) {
         plato.sauvegarder(nomSauvegarde,nbcoup,time);
     }
 
+    /**
+     * méthode hérité de Panel
+     * lance le compte du temps
+     * @return la scene graphique
+     */
     public Scene getScene() {
         son.afficheSon();
         timeline.play();
         return scene;
     }
 
+    /**
+     * getter du nombre de coups
+     * @return nbcoups
+     */
     private int getNbCoup() {
         return nbcoup;
     }
 
+    
+    /**
+     * setter du nombre de coup
+     * incremente le nombre de coups et l'affiche
+     */
     private void setNbCoup() {
         nbcoup++;
         nbCoups.setText("coups joués : " + nbcoup);
     }
 
+    
+    /**
+     * permet l'affichage du temps en heures, minutes et secondes
+     * @param tempsS temps en secondes
+     * @return le temps formaliser HH h MM min ss s
+     */
     private String timeToHMS(int tempsS) {
 
         // IN : (long) temps en secondes
@@ -280,6 +292,11 @@ public class GuiJeu implements Panel {
         return r;
     }
     
+    /**
+     * permet l'affichage du temps pour la base de données
+     * @param tempsS temps en secondes
+     * @return le temps formaliser HH:MM:ss
+     */
     private String timeToBase(int tempsS) {
 
         // IN : (long) temps en secondes
@@ -302,6 +319,9 @@ public class GuiJeu implements Panel {
 
     
 
+    /**
+     * méthode pour enregistrer un vainqueur dans la base avec un pseudo, un nombre de coups, le temps effectué et la date de victoire
+     */
     public void enregistrementBDD() {
         String tempsParti = timeToBase(time);
         SimpleDateFormat formater = null;

@@ -16,7 +16,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.ImagePattern;
 
 /**
- *
+ * classe permettant la gestion de la musique graphiquement
  * @author Mathieu
  */
 public class SonGraph extends Label{
@@ -24,6 +24,9 @@ public class SonGraph extends Label{
     private Background sikON;
     private Background sikOFF;
     
+    /**
+     * Constructeur de l'icone de gestion de musique
+     */
     public SonGraph(){
         setMinHeight(30);
         setMinWidth(30);
@@ -48,6 +51,9 @@ public class SonGraph extends Label{
         });
     }
     
+    /**
+     * affiche la bonne icône suivant si la musique est joué ou pas
+     */
     public void afficheSon(){
         if(Musik.son) setBackground(sikON);
         else setBackground(sikOFF);
