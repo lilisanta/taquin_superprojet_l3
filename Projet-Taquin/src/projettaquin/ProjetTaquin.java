@@ -34,7 +34,10 @@ public class ProjetTaquin extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        if(args.length==0)
         launch(args);
+        else
+            new taquinconsole.TaquinConsole().main(args);
     }
     
 }
