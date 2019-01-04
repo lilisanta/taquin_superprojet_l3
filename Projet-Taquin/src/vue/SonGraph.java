@@ -21,14 +21,17 @@ import javafx.scene.paint.ImagePattern;
  */
 public class SonGraph extends Label{
     
+    private Background sikON;
+    private Background sikOFF;
+    
     public SonGraph(){
         setMinHeight(30);
         setMinWidth(30);
         String image=System.getProperty("user.dir")+"\\media\\images\\";
         image=image.replace('\\','/');
         String sonIm="file:///"+image+"";
-        Background sikON=new Background(new BackgroundFill(new ImagePattern(new Image(sonIm+"son_on.jpg")), new CornerRadii(25, true), Insets.EMPTY));
-        Background sikOFF=new Background(new BackgroundFill(new ImagePattern(new Image(sonIm+"son_off.png")), new CornerRadii(25, true), Insets.EMPTY));
+        sikON=new Background(new BackgroundFill(new ImagePattern(new Image(sonIm+"son_on.jpg")), new CornerRadii(25, true), Insets.EMPTY));
+        sikOFF=new Background(new BackgroundFill(new ImagePattern(new Image(sonIm+"son_off.png")), new CornerRadii(25, true), Insets.EMPTY));
         setBackground(sikON);
         setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -43,6 +46,11 @@ public class SonGraph extends Label{
             }
             
         });
+    }
+    
+    public void afficheSon(){
+        if(Musik.son) setBackground(sikON);
+        else setBackground(sikOFF);
     }
     
 }

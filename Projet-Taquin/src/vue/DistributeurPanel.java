@@ -25,7 +25,7 @@ public class DistributeurPanel {
         
         Menu menu=new Menu(this);
         MenuSolo solo=new MenuSolo(this);
-        GuiJeu gui=new GuiJeu(this, new PlateauGraphique(),"Solo");
+        GuiJeu gui=new GuiJeu(this, new PlateauGraphique(3,"image-taquin1.jpg"),"Solo");
         Victoire vic=new Victoire(this);
         Guide guide=new Guide(this);
         Classement classement=new Classement(this);

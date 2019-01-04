@@ -6,26 +6,18 @@
 package vue;
 
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.effect.InnerShadow;
-import javafx.scene.effect.Light;
-import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,6 +26,7 @@ import javax.swing.JOptionPane;
 public class Menu implements Panel{
     
     private Scene scene;
+    private SonGraph son;
     
     
     public Menu(DistributeurPanel distri){
@@ -133,7 +126,7 @@ public class Menu implements Panel{
         copyright.setAlignment(Pos.CENTER);
         copyright.setMinWidth(scene.getWidth());
         
-        SonGraph son=new SonGraph();
+        son=new SonGraph();
         son.setTranslateX(750);
         
         vb.getChildren().add(quitter);
@@ -147,6 +140,7 @@ public class Menu implements Panel{
     }
     
     public Scene getScene(){
+        son.afficheSon();
         return scene;
     }
     

@@ -5,7 +5,7 @@
  */
 package vue;
 
-import java.io.File;
+
 import javafx.animation.ScaleTransition;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -14,18 +14,14 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
 /**
@@ -63,6 +59,12 @@ class Victoire implements Panel{
         st.setToX(3);
         st.setToY(3);
         
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                distri.changePanel("menu");
+            }
+        });
         scene.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event) {
@@ -76,6 +78,7 @@ class Victoire implements Panel{
     
     @Override
     public Scene getScene() {
+        st.jumpTo(Duration.ZERO);
         st.play();
         return scene;
     }

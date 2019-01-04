@@ -5,7 +5,6 @@
  */
 package vue;
 
-
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -27,8 +26,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
-import vue.DistributeurPanel;
-import vue.Panel;
 
 /**
  *
@@ -37,6 +34,7 @@ import vue.Panel;
 public class Guide implements Panel{
     
     private Scene scene;
+    private SonGraph son;
     
     public Guide(DistributeurPanel dp){
         Group groupe=new Group();
@@ -65,7 +63,7 @@ public class Guide implements Panel{
 
         });
         
-        SonGraph son=new SonGraph();
+        son=new SonGraph();
         son.setTranslateX(750);
         son.setTranslateY(20);
         
@@ -76,7 +74,7 @@ public class Guide implements Panel{
         
         Label imageSave=new Label();
         imageSave.setBackground(new Background(new BackgroundImage(new Image(source+"sauvegarde.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-        imageSave.setStyle("-fx-border: 2px solid rgb(225,252,252);");
+        imageSave.setBorder(new Border(new BorderStroke(Color.rgb(235,235,235), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
         imageSave.setTranslateX(500);
         imageSave.setTranslateY(150);
         imageSave.setMinWidth(197);
@@ -84,7 +82,7 @@ public class Guide implements Panel{
         
         Label imageSavePop=new Label();
         imageSavePop.setBackground(new Background(new BackgroundImage(new Image(source+"sauvegardePop.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-        imageSavePop.setBorder(new Border(new BorderStroke(Color.rgb(225,225,225), BorderStrokeStyle.NONE, CornerRadii.EMPTY, BorderWidths.FULL)));
+        imageSavePop.setBorder(new Border(new BorderStroke(Color.rgb(225,225,225), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
         imageSavePop.setTranslateX(465);
         imageSavePop.setTranslateY(250);
         imageSavePop.setMinWidth(337);
@@ -113,6 +111,7 @@ public class Guide implements Panel{
     @Override
     public Scene getScene() {
         
+        son.afficheSon();
         return scene;
     }
     

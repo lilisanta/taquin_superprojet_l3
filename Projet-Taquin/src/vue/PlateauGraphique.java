@@ -5,9 +5,7 @@
  */
 package vue;
 
-
 import java.io.IOException;
-import java.io.Serializable;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,61 +20,68 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.util.Duration;
-import modele.Case;
-import modele.CaseNumerotee;
-import modele.CaseVide;
-import modele.PlateauImage;
+import modele.*;
+import taquinconsole.GenerateurPlateau;
 import utils.ImageUtils;
 
 /**
  *
  * @author Mathieu
  */
-public class PlateauGraphique extends GridPane implements Serializable {
+public class PlateauGraphique extends GridPane {
 
     private PlateauImage plateau;
-    private int tailleCase=4;
-    private int coups,time;
+    private int tailleCase;
+    private int coups, time;
 
-    public PlateauGraphique() {
-        this.setMinWidth(420);
-        this.setMaxWidth(420);
-        this.setMinHeight(420);
-        this.setStyle("-fx-background-color: rgb(205,205,205);");
+    public PlateauGraphique(int nbCase, String image) {
+
+        try {
+            PlateauConsole cons = GenerateurPlateau.genererPlateauConsole(nbCase);
+            plateau = new PlateauImage(cons.getCases(), 0, 0, image);
+            init();
+            System.out.println(plateau.toString());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
     }
 
     public PlateauGraphique(String partie) {
+        try {
+            plateau = PlateauImage.charger("media/plateau/" + partie);
+            init();
+            System.out.println(plateau.toString());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    private void init() {
         this.setMinWidth(420);
         this.setMaxWidth(420);
         this.setMinHeight(420);
-
-        
-        try {
-            plateau=PlateauImage.charger("media/plateau/"+partie);
-            //plateau = GenerateurPlateau.chargerPlateau("media/plateau/" + partie);
-            coups=plateau.getNbcoups();
-            time=plateau.getTemps();
-            tailleCase=plateau.getCases().length;
-            ImageUtils.split("media/images/"+plateau.getImage(), tailleCase);
-            Case[][] cases = plateau.getCases();
-            for (int i = 0; i < cases.length; i++) {
-                for (int j = 0; j < cases[i].length; j++) {
-                    Case courante = cases[i][j];
-                    if (courante instanceof CaseNumerotee) {
-                        int numCase=((CaseNumerotee) courante).getNum();
-                        Label l = new Label("" + numCase);
-                        l.setMinWidth(420 / tailleCase);
-                        l.setMinHeight(420 / tailleCase);
-                        l.setAlignment(Pos.CENTER);
-                        String source = "file:///" + System.getProperty("user.dir") + "∖∖media∖∖images∖∖tmp∖∖" + numCase + ".png";
-                        source = source.replace("∖∖", "/");
-                        l.setBackground(new Background(new BackgroundFill(new ImagePattern(new Image(source)), CornerRadii.EMPTY, Insets.EMPTY)));
-                        this.add(l, j, i);
-                    }
+        coups = plateau.getNbcoups();
+        time = plateau.getTemps();
+        tailleCase = plateau.getCases().length;
+        ImageUtils.split("media/images/" + plateau.getImage(), tailleCase);
+        Case[][] cases = plateau.getCases();
+        for (int i = 0; i < cases.length; i++) {
+            for (int j = 0; j < cases[i].length; j++) {
+                Case courante = cases[i][j];
+                if (!courante.estVide()) {
+                    int numCase = ((CaseNumerotee) courante).getNum();
+                    Label l = new Label("" + numCase);
+                    l.setMinWidth(420 / tailleCase);
+                    l.setMinHeight(420 / tailleCase);
+                    l.setAlignment(Pos.CENTER);
+                    String source = "file:///" + System.getProperty("user.dir") + "∖∖media∖∖images∖∖tmp∖∖" + numCase + ".png";
+                    source = source.replace("∖∖", "/");
+                    l.setBackground(new Background(new BackgroundFill(new ImagePattern(new Image(source)), CornerRadii.EMPTY, Insets.EMPTY)));
+                    this.add(l, j, i);
                 }
             }
-        } catch (IOException ex) {
-            ex.printStackTrace();
         }
     }
 
@@ -111,7 +116,7 @@ public class PlateauGraphique extends GridPane implements Serializable {
         return plateau.verifierVictoire();
     }
 
-    public void sauvegarder(String nomSauvegarde) {
+    public void sauvegarder(String nomSauvegarde, int coups, int time) {
         plateau.sauvegarder(nomSauvegarde);
     }
 
@@ -206,9 +211,5 @@ public class PlateauGraphique extends GridPane implements Serializable {
     public String getImage() {
         return plateau.getImage();
     }
-
-    
-
-    
 
 }

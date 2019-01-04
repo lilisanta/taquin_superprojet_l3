@@ -14,24 +14,13 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -49,6 +38,7 @@ public class Classement implements Panel {
     private Scene scene;
     private TableView<Joueur> tv = new TableView<Joueur>();
     private String source;
+    private SonGraph son;
 
     public Classement() {
         Group groupe = new Group();
@@ -83,7 +73,7 @@ public class Classement implements Panel {
 
         });
 
-        SonGraph son = new SonGraph();
+        son = new SonGraph();
         son.setTranslateX(750);
         son.setTranslateY(20);
 
@@ -141,7 +131,6 @@ public class Classement implements Panel {
         } else {
             for (int i = 0; i < dataDB.size(); i = i + 3) {
                 Joueur j = new Joueur(dataDB.get(i), dataDB.get(i + 1), dataDB.get(i + 2));
-                System.out.println(j.toString());
                 oal.add(j);
             }
             tv.setItems(oal);
@@ -151,6 +140,7 @@ public class Classement implements Panel {
 
     @Override
     public Scene getScene() {
+        son.afficheSon();
         chargerListView();
         return scene;
     }
