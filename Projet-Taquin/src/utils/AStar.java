@@ -20,18 +20,19 @@ import java.util.Set;
 import java.util.Stack;
 import modele.Case;
 import modele.CaseNumerotee;
-import modele.PlateauConsole;
+import modele.Plateau;
 
 /**
- *
- * @author guillaume
+ * Classe d'implémentation de l'algorithme A*
  */
 public class AStar implements AlgoIA {
-
-    Set<PlateauConsole> closedSet = new HashSet<PlateauConsole>();
-    PriorityQueue<PlateauConsole> openSet = new PriorityQueue<PlateauConsole>(10, new Comparator<PlateauConsole>(){
+    /**
+     * 
+     */
+    private Set<Plateau> closedSet = new HashSet<Plateau>();
+    private PriorityQueue<Plateau> openSet = new PriorityQueue<Plateau>(10, new Comparator<Plateau>(){
         @Override
-        public int compare(PlateauConsole o1, PlateauConsole o2) {
+        public int compare(Plateau o1, Plateau o2) {
             if(cout(o1)<cout(o2)){
                 return 1;
             }else if(cout(o1)==cout(o2)){
@@ -43,10 +44,9 @@ public class AStar implements AlgoIA {
         
     });
 
-    Map<PlateauConsole, PlateauConsole> vientDe = new HashMap<PlateauConsole, PlateauConsole>();
-    Map<PlateauConsole, Integer> fScore = new HashMap<PlateauConsole, Integer>();
-    Map<PlateauConsole, Integer> gScore = new HashMap<PlateauConsole, Integer>();
-    private ArrayList<PlateauConsole> chemin;
+    private Map<Plateau, Plateau> vientDe = new HashMap<Plateau, Plateau>();
+    private Map<Plateau, Integer> fScore = new HashMap<Plateau, Integer>();
+    private Map<Plateau, Integer> gScore = new HashMap<Plateau, Integer>();
 
     /*   private class Node implements Comparable<Node>{
         public Plateau etat;
@@ -72,7 +72,7 @@ public class AStar implements AlgoIA {
 
     }*/
     @Override
-    public Stack aide(PlateauConsole depart) {
+    public Stack aide(Plateau depart) {
         /*     Node depart = new Node(p,0,0,null);
       List<Node> listeFermee = new LinkedList<Node>();
       PriorityQueue<Node> listeOuverte = new PriorityQueue<Node>();
@@ -126,12 +126,12 @@ public class AStar implements AlgoIA {
             }
             
             Plateau etatCourant = courant.getKey();*/
-          PlateauConsole etatCourant = openSet.peek();
+          Plateau etatCourant = openSet.peek();
             if (etatCourant.verifierVictoire()) {
                 //DANS CE CAS, CHEMIN TROUVé
                 
                 List cheminSolution = reconstituerChemin(etatCourant);
-                Stack<PlateauConsole>  res = new Stack<PlateauConsole>();
+                Stack<Plateau>  res = new Stack<Plateau>();
                 res.addAll(cheminSolution);
                 return res;
 
@@ -141,8 +141,8 @@ public class AStar implements AlgoIA {
             
             
             
-            PlateauConsole[] configsPossibles = etatCourant.configurationsSuivantesPossibles();
-            for (PlateauConsole i : configsPossibles) {
+            Plateau[] configsPossibles = etatCourant.configurationsSuivantesPossibles();
+            for (Plateau i : configsPossibles) {
                // System.out.println(i);
                 if (closedSet.contains(i)) {
                     continue;
@@ -166,11 +166,10 @@ public class AStar implements AlgoIA {
 
     /**
      * Calcule le nombre de cases mal placées dans un noeud
-     *
      * @param grille Grille de l'état courant
      * @return nombre de cases mal placées
      */
-    public int cout(PlateauConsole grille) {
+    public int cout(Plateau grille) {
         int res = 0;
         Case[][] cases = grille.getCases();
         for (int i = 0; i < cases.length; i++) {
@@ -187,9 +186,13 @@ public class AStar implements AlgoIA {
 
         return res;
     }
-
-    private List reconstituerChemin( PlateauConsole courant) {
-        List<PlateauConsole> cheminTotal = new ArrayList<PlateauConsole>();
+    /**
+     * Méthode qui permet de reconstituer le chemin 
+     * @param courant
+     * @return Chemin des états amenant à la solution
+     */
+    private List reconstituerChemin( Plateau courant) {
+        List<Plateau> cheminTotal = new ArrayList<Plateau>();
         cheminTotal.add(courant);
         while (vientDe.containsKey(courant)) {
             courant = vientDe.get(courant);

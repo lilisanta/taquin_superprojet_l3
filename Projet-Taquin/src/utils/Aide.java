@@ -6,16 +6,18 @@
 package utils;
 
 import java.util.Stack;
-import modele.PlateauConsole;
+import modele.Plateau;
 
 /**
- *
- * @author guillaume
+ *Classe Helper qui permet d'obtenir l'ensemble des coups à réaliser poru terminer le plateau
  */
 public class Aide {
     private AlgoIA algo;
     
-    
+    /**
+     * Constructeur de la classe Aide
+     * @param typeAlgo Type de l'algorithme à utiliser (A* ou IDA*) 
+     */
     public Aide(String typeAlgo){
         if(typeAlgo.equals("A*")){
             this.algo = new AStar();
@@ -23,8 +25,12 @@ public class Aide {
             this.algo = new IDAStar();
         }
     }
-    
-    public PlateauConsole aide(PlateauConsole p){
-        return (PlateauConsole)(this.algo.aide(p).pop());
+    /**
+     * Retourne le plateau du prochain coup à réaliser pour terminer le jeu
+     * @param p Plateau actuel
+     * @return  Meilleur pateau possible depuis la position actuelle
+     */
+    public Plateau aide(Plateau p){
+        return (Plateau)(this.algo.aide(p).pop());
     }
 }

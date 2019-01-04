@@ -1,15 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package utils;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 
-
+/**
+ * Classe helper s'occupant du split d'images.
+ * Cela permet de construire une grille de tailel variable avec l'image de ntore choix.
+ */
 public class ImageUtils {
     
     
@@ -19,7 +17,6 @@ public class ImageUtils {
     * @param nb Nombre de carrés que l'on souhaite
     */
     public static void split(String path,int nb){
-		//Note : il faut créer le dossier media/images/tmp à la racine du projet si ce n'est pas déjà fait
         try{
             int compte = 1;
             BufferedImage source = ImageIO.read(new File(path));

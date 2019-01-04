@@ -16,13 +16,19 @@ public class CaseNumerotee extends Case{
         this.y = y;
         this.numero=n;
     }
-    
+    /**
+     * Constructeur par copie de la case
+     * @param c Case à copier
+     */
     public CaseNumerotee(Case c){
         this.x = c.getX();
         this.y = c.getY();
         this.numero = ((CaseNumerotee)c).getNum();
     }
-    
+    /**
+     * Getter du numéro de la case
+     * @return numéro de la case
+     */
     public int getNum(){
         return this.numero;
     }

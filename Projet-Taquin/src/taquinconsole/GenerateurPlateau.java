@@ -3,7 +3,7 @@ package taquinconsole;
 import modele.CaseVide;
 import modele.Case;
 import modele.CaseNumerotee;
-import modele.PlateauConsole;
+import modele.Plateau;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -29,9 +29,9 @@ public class GenerateurPlateau {
      * @return Plateau nouvellement généré, null si la taille donnée est
      * incorrecte
      */
-    public static PlateauConsole genererPlateauConsole(int taille) throws Exception {
+    public static Plateau genererPlateauConsole(int taille) {
 
-        PlateauConsole p = null; //Plateau résultat
+        Plateau p = null; //Plateau résultat
         int comptePermutations = 0; // Si pair, alors plateau valide
         boolean plateauValide = false; // Pour savoir si on doit recréer un plateau
         int[] valeurs = new int[taille * taille]; // Valeurs à mélanger
@@ -102,9 +102,9 @@ public class GenerateurPlateau {
                 }
             }
 
-            p = new PlateauConsole(casesRes);
+            p = new Plateau(casesRes);
         } else {
-            throw new Exception("Plateau trop petit");
+            System.out.println("Plateau trop petit");
         }
         return p;
     }
@@ -116,8 +116,8 @@ public class GenerateurPlateau {
      * @return Plateau représenté dans le fichier
      * @throws IOException Dans le cas où le fichier spécifié n'existe pas
      */
-    public static PlateauConsole chargerPlateau(String fileName) throws IOException {
-        PlateauConsole p = null;
+    public static Plateau chargerPlateau(String fileName) throws IOException {
+        Plateau p = null;
         BufferedReader in = new BufferedReader(new FileReader(fileName));
         int taille = Integer.parseInt(in.readLine());
         Case[][] cases = new Case[taille][taille];
@@ -137,7 +137,7 @@ public class GenerateurPlateau {
                 }
             }
         }
-        p = new PlateauConsole(cases);
+        p = new Plateau(cases);
 
         return p;
     }

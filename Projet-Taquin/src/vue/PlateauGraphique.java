@@ -37,7 +37,7 @@ public class PlateauGraphique extends GridPane {
     public PlateauGraphique(int nbCase, String image) {
 
         try {
-            PlateauConsole cons = GenerateurPlateau.genererPlateauConsole(nbCase);
+            Plateau cons = GenerateurPlateau.genererPlateauConsole(nbCase);
             plateau = new PlateauImage(cons.getCases(), 0, 0, image);
             init();
             System.out.println(plateau.toString());

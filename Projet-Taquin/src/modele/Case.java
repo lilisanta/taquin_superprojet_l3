@@ -13,11 +13,17 @@ import java.io.Serializable;
  */
 public abstract class Case implements Serializable,Cloneable{
     protected int x,y;
-
+    /**
+     * Getter de l'abscisse
+     * @return abscisse de la case
+     */
    public int getX() {
         return this.x;
     }
-
+   /**
+     * Getter de l'ordonnée
+     * @return ordonnée de la case
+     */
    public int getY() {
         return this.y;
     }

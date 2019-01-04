@@ -15,15 +15,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.Serializable;
 /**
- *Classe représentant le plateau de jeu, avec des cases numérotées et une case vide
+ *Classe représentant le plateau de jeu, avec des cases numérotées et une case vide, ainsi que le compte du nombre de coups, du temps passé, et de l'image de fond.
+ * Cette classe hérite de la classe Plateau.
  */
-public class PlateauImage extends PlateauConsole implements Serializable{
+public class PlateauImage extends Plateau implements Serializable{
     private int nbcoups,temps;
     private String image;
     
     /**
-     * Constructeur du plateau
+     * Constructeur du plateau avec une image de fond
      * @param c Tableau de cases qui sert à la création du plateau
+     * @param coups Nombre de coups déjà réalisés sur le plateau
+     * @param time Temsp déjà passé sur cette partie
+     * @param imageFond Chemin vers l'image servant de fond au plateau
      */
     public PlateauImage(Case[][] c, int coups, int time, String imageFond){
         super(c);
@@ -84,7 +88,12 @@ public class PlateauImage extends PlateauConsole implements Serializable{
     }
         
     
-    
+    /**
+     * Méthode permettant de charger un fichier de sauvegarde en mode graphique
+     * @param nomFich Nom et chemin du fichier de sauvegarde
+     * @return Un plateau à l'état dans lequel on l'a laissé
+     * @throws IOException Erreur de lecture
+     */
     public static PlateauImage charger(String nomFich)throws IOException{
 
         PlateauImage p=null;
@@ -117,14 +126,24 @@ public class PlateauImage extends PlateauConsole implements Serializable{
         
         return p;
     }
+    /**
+     * Getter du nombre de coups effectués
+     * @return Nombre de coups effectués
+     */
     public int getNbcoups() {
         return nbcoups;
     }
-
+    /**
+     * Getter du temps passé sur le plateau
+     * @return Temps passé sur le plateau
+     */
     public int getTemps() {
         return temps;
     }
-
+    /**
+     * Getter du chemin de l'image
+     * @return Chemin de l'image
+     */
     public String getImage() {
         return image;
     }

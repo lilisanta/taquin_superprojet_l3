@@ -15,7 +15,7 @@ import java.util.Objects;
 /**
  *Classe représentant le plateau de jeu, avec des cases numérotées et une case vide
  */
-public class PlateauConsole implements Serializable, Cloneable{
+public class Plateau implements Serializable, Cloneable{
     protected Case[][] cases;
     protected Case caseVide;
     protected char dernierDepalcement = 0;
@@ -23,11 +23,11 @@ public class PlateauConsole implements Serializable, Cloneable{
      * Constructeur du plateau
      * @param c Tableau de cases qui sert à la création du plateau
      */
-    public PlateauConsole(Case[][] c){
+    public Plateau(Case[][] c){
         if(c == null) try {
             throw new Exception("Tableau de cases null");
         } catch (Exception ex) {
-            Logger.getLogger(PlateauConsole.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Plateau.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.cases = c;
         for(int i=0; i < cases.length; i++){
@@ -38,8 +38,11 @@ public class PlateauConsole implements Serializable, Cloneable{
             }
         }
     }
-    
-    public PlateauConsole(PlateauConsole p ){
+    /**
+     * Constructeur par copie du plateau
+     * @param p Plateau à copier
+     */
+    public Plateau(Plateau p ){
         int taille = p.getCases().length;
         this.cases = new Case[taille][taille];
         Case[][] c2 = p.getCases();
@@ -116,7 +119,10 @@ public class PlateauConsole implements Serializable, Cloneable{
         }
         return false;
     }
-    
+    /**
+     * permet de savoir si le plateau est résolu ou non
+     * @return true si le plateau est résolu (victoire)
+     */
     public boolean verifierVictoire(){
         int compte=1;
         for(int i=0; i < this.cases.length; i++){
@@ -154,7 +160,11 @@ public class PlateauConsole implements Serializable, Cloneable{
         }
         return res;
     }
-    
+    /**
+     * Méthode de sauvegarde permettant de stocker le fichier sous format binaire (uniquement jeu en console)
+     * @param filename Chemin du fichier de sauvegarde
+     * @return 
+     */
     public boolean sauvegarder(String filename){
         ObjectOutputStream oos = null;
         try {
@@ -170,14 +180,19 @@ public class PlateauConsole implements Serializable, Cloneable{
         
     }
     
-    
-    public static PlateauConsole charger(String nomFich)throws IOException{
-        PlateauConsole p = null;
+    /**
+     * Méthode permettant de charger un fichier issu de la sauvegarde en mode console
+     * @param nomFich Nom de la sauvegarde
+     * @return Plateau chargé
+     * @throws IOException Erreur de lecture/écriture
+     */
+    public static Plateau charger(String nomFich)throws IOException{
+        Plateau p = null;
         Object o;
         ObjectInputStream in = new ObjectInputStream((new FileInputStream(nomFich)));
         try {
             o =  in.readObject();
-            p = (PlateauConsole) o;
+            p = (Plateau) o;
             in.close();
         } catch (ClassNotFoundException ex) {
             System.err.println("La partie n'a pas pu être chargée");
@@ -186,30 +201,45 @@ public class PlateauConsole implements Serializable, Cloneable{
         
         return p;
     }
-
+    /**
+     * Getter des cases
+     * @return  Cases
+     */
     public Case[][] getCases() {
         return cases;
     }
-
+    /**
+     * Setter des cases
+     * @param cases Nouvelles cases
+     */
     public void setCases(Case[][] cases) {
         this.cases = cases;
     }
-
+    /**
+     * Setter de la case vide
+     * @param caseVide Nouvelle case vide
+     */
     public void setCaseVide(Case caseVide) {
         this.caseVide = caseVide;
     }
-
+    /**
+     * Getter de la case vide
+     * @return Case vide
+     */
     public Case getCaseVide() {
         return caseVide;
     }
-    
-    public PlateauConsole[] configurationsSuivantesPossibles(){
-        PlateauConsole[] res= new PlateauConsole[4];
+    /**
+     * Méthode qui permet d'obtenir les différentes configurations possibles de plateaux pour les algos d'IA (voisins dans le graphe des états)
+     * @return Configurations possibles du plateau au prochain coup
+     */
+    public Plateau[] configurationsSuivantesPossibles(){
+        Plateau[] res= new Plateau[4];
         //Clonage de plateau;
-        PlateauConsole pHaut = new PlateauConsole(this);
-        PlateauConsole pBas = new PlateauConsole(this);
-        PlateauConsole pGauche = new PlateauConsole(this);
-        PlateauConsole pDroite = new PlateauConsole(this);
+        Plateau pHaut = new Plateau(this);
+        Plateau pBas = new Plateau(this);
+        Plateau pGauche = new Plateau(this);
+        Plateau pDroite = new Plateau(this);
         pHaut.deplacement('h');
         pBas.deplacement('b');
         pGauche.deplacement('g');
@@ -242,7 +272,7 @@ public class PlateauConsole implements Serializable, Cloneable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final PlateauConsole other = (PlateauConsole) obj;
+        final Plateau other = (Plateau) obj;
         if (this.dernierDepalcement != other.dernierDepalcement) {
             return false;
         }

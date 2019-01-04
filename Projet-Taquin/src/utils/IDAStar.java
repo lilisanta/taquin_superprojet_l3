@@ -9,19 +9,18 @@ import static java.lang.Math.abs;
 import java.util.Stack;
 import modele.Case;
 import modele.CaseNumerotee;
-import modele.PlateauConsole;
+import modele.Plateau;
 
 /**
- *
- * @author guillaume
+ *Classe qui implémente l'algorithme IDA* pour la résolution du plateau
  */
 public class IDAStar implements AlgoIA{
-    private static final double FOUND = -200;
+    private static final double FOUND = Integer.MAX_VALUE;
     private Stack chemin;
     
     
     @Override
-    public Stack aide(PlateauConsole p) {
+    public Stack aide(Plateau p) {
        int lim = 0;
        double t;
        chemin = new Stack();
@@ -39,7 +38,7 @@ public class IDAStar implements AlgoIA{
      * @param grille Grille de l'état courant
      * @return nombre de cases mal placées
      */
-    public int cout(PlateauConsole grille){
+    public int cout(Plateau grille){
         int res = 0;
         Case[][] cases = grille.getCases();
         for(int i = 0; i < cases.length; i++){
@@ -58,20 +57,20 @@ public class IDAStar implements AlgoIA{
         return res;
     }
     /**
-     * 
-     * @param coutEstimePlusCourt
-     * @param limite
-     * @return 
+     * Méthode permettant de rechercher un chemin optimal dans le graphe d'états du jeu
+     * @param coutEstimePlusCourt Cout estimé du chemin le plus court existant
+     * @param limite cout à ne pas dépasser pour la recherche du chemin
+     * @return FOUND si on trouve un chemin, une valeur autre sinon
      */
     public double recherche(int coutEstimePlusCourt, double limite ){
         double min = 0;
-        PlateauConsole noeud = (PlateauConsole) chemin.lastElement();
+        Plateau noeud = (Plateau) chemin.lastElement();
         double f = coutEstimePlusCourt + cout(noeud);
         if(f > limite) return f;
         if(noeud.verifierVictoire()) return 0;
         min = Double.MAX_VALUE;
-        PlateauConsole[] configs = noeud.configurationsSuivantesPossibles();
-        for(PlateauConsole i : configs){
+        Plateau[] configs = noeud.configurationsSuivantesPossibles();
+        for(Plateau i : configs){
             if(!chemin.contains(i)){
                 chemin.push(i);
                double t = recherche(coutEstimePlusCourt+cout(i),limite);

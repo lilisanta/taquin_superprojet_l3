@@ -6,12 +6,11 @@
 package utils;
 
 import java.util.Stack;
-import modele.PlateauConsole;
+import modele.Plateau;
 
 /**
- *
- * @author guillaume
+ *Interface servatn à l'implémentation du patron strategy, et qui permet de définir le comportement des algorithmes de résolution du jeu.
  */
 public interface AlgoIA {
-    public Stack aide(PlateauConsole p);
+    public Stack aide(Plateau p);
 }
