@@ -412,7 +412,6 @@ public class MenuSolo implements Panel {
                 if(numImage<1) numImage=1;
                 tailleCase=nbCase;
                 imageSource="image-taquin"+numImage+".jpg";
-                System.out.println("numImage="+numImage+" | nbCase="+nbCase);
             }
         });
         
