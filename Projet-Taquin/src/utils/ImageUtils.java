@@ -23,7 +23,7 @@ public class ImageUtils {
            int x = 0,y = 0;
            int dx = (source.getWidth()/nb);
            int dy = (source.getHeight()/nb);
-           System.out.println("dx="+dx+ "et dy ="+dy);
+          // System.out.println("dx="+dx+ "et dy ="+dy);
            
            
            if(dx*nb==source.getWidth()){
