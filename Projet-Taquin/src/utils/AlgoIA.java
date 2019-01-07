@@ -12,5 +12,10 @@ import modele.Plateau;
  *Interface servatn à l'implémentation du patron strategy, et qui permet de définir le comportement des algorithmes de résolution du jeu.
  */
 public interface AlgoIA {
+    /**
+     * méthode donnant la combinaison optimale de mouvements pour terminer la partie
+     * @param p Plateau à l'état courant
+     * @return Pile d'états successifs à obtenir pour terminer la partie en un nombre minimum de coups
+     */
     public Stack aide(Plateau p);
 }

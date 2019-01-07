@@ -8,7 +8,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.Aide;
 
-
+/**
+ * Classe chargée de lancer le jeu en mode console
+ */
 public class TaquinConsole {
 
     /**

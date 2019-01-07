@@ -14,7 +14,6 @@ import vue.DistributeurPanel;
 
 /**
  * classe principale qui lance l'application en version graphique
- * @author guillaume
  */
 public class ProjetTaquin extends Application {
     
