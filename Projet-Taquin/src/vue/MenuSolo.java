@@ -545,7 +545,7 @@ public class MenuSolo implements Panel {
     private ObservableList<Label> chargerListView() {
         ObservableList<Label> oal = FXCollections.observableArrayList();
         File repertoire = new File(System.getProperty("user.dir") + "\\media\\plateau");
-        if (repertoire.listFiles().length == 0) {
+        if (repertoire.listFiles() == null) {
             oal.add(new Label("Aucune partie enregistrée"));
         } else {
             for (File f : repertoire.listFiles()) {
