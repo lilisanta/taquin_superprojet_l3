@@ -21,7 +21,7 @@ public class TaquinConsole {
                +" 'b'pour déplacer vers le haut \n"
                + " 'g' pour déplacer vers la gauche\n"
                +" 'd' pour déplacer vers la droite \n"
-               +" 's' pour sauvegarder la partie (toute sauvegarde écrasera l'ancienne)");
+               +" 's' pour sauvegarder la partie \n");
        Scanner in = new Scanner(System.in);
        char commande=0;
         
