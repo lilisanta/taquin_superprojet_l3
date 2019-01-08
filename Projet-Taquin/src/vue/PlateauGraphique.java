@@ -132,7 +132,7 @@ public class PlateauGraphique extends GridPane {
      * @param time temps effectué au moment de la sauvegarde
      */
     public void sauvegarder(String nomSauvegarde, int coups, int time) {
-        plateau.sauvegarder(nomSauvegarde);
+        plateau.sauvegarder(nomSauvegarde,coups,time);
     }
 
     /**
